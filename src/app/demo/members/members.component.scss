@@ -1,0 +1,64 @@
+.action-buttons {
+    position: relative; /* Change to relative to position the buttons relative to this container */
+}
+
+.action-button,
+.action-button1 {
+    position: absolute; /* Position the buttons absolutely within the container */
+    opacity: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    width: 30%;
+    height: 80%;
+}
+
+.action-buttons:hover .action-button,
+.action-buttons:hover .action-button1 {
+    opacity: 1; 
+}
+
+.action-button i,
+.action-button1 i {
+    color: #000; 
+}
+
+.action-button:hover{
+    background-color: yellow;
+    border-radius: 20px;
+    color: white;
+}
+.action-button1:hover {
+    background-color: red; 
+    border-radius: 20px;
+    color: white;
+}
+
+.action-button1 {
+    left: 40px; 
+}
+
+ /* modal button */
+ .firstButton{border:none; background-color:#008080; color:#fff; padding:4px 10px; margin:10px auto;}
+ .firstButton:hover{outline:none; cursor:pointer; opacity:0.8;}
+ .firstButton:visited{outline:none;}
+ 
+ /* Modal Box */
+ .modal{position:absolute; width:100%; background:rgba(0,0,0,0.5); height:100%; top:0; left:0;}
+ .modalBody{background-color:#fff; margin:5rem auto;   width:769px; border-radius:5px;}
+ .modalHeader{padding:1px 10px; border-bottom:1px solid #ccc}
+ .modalHeader span{ float:right; font-size:14px;padding-right:5px;}
+ .modalHeader span:hover{cursor:pointer;}
+ .modalFooter{padding:5px 10px;}
+ .modalContant{padding:5px 10px; border-bottom:1px solid #ccc;}
+ .modalFooter{text-align:center;}
+ .footerbtn{border:none; background-color:#008000; color:#fff; padding:10px 20px; margin:10px auto; border-radius:5px; }
+ .footerbtn:hover{outline:none; cursor:pointer; opacity:0.8;}
+ .footerbtn:visited{outline:none;}
+ 
+ .modalToggle{display:none}
+ 
+ @media screen and (max-width:679px){
+   .modalBody{width:95%; margin:5rem auto;}
+ }

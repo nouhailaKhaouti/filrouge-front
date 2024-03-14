@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-sm-12">
+
+        <app-card
+        cardTitle="Create New Exams"
+        cardClass="Exams"
+        blockClass="p-0"
+      >
+      <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+        {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+      </button> -->
+      <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Fill Exam info</ng-template>
+            <p>
+              <div class="form-outline" data-mdb-input-init>
+                <input type="text" id="form12" class="form-control" />
+                <label class="form-label" for="form12">Example label</label>
+              </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Year</mat-label>
+              <input matInput placeholder="Placeholder">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+          </p>
+            <p class="d-flex justify-content-start">
+            <mat-form-field appearance="outline" class="mx-2">
+              <mat-label>Writing exams Date</mat-label>
+              <input matInput text="Date" placeholder="Placeholder">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Writing exams Date</mat-label>
+              <input matInput text="Date" placeholder="Placeholder" class="form-control">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+          </p>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Fill out your address</ng-template>
+            <mat-form-field>
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                     required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+        </app-card>
+    </div>
+</div>

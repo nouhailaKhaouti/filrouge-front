@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-sm-12">
+
+        <app-card
+        cardTitle="Members"
+        cardClass="Members"
+        blockClass="p-0"
+      >
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <tbody *ngFor="let Member of Members | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: count }; let i = index">
+              
+                <tr class="unread">
+                  <td>
+                    <img
+                      class="rounded-circle"
+                      style="width: 40px"
+                      src="assets/images/user/avatar-3.jpg"
+                      alt="activity-user"
+                    />
+                  </td>
+                  <td>
+                    <h6 class="mb-1 label bg-black text-white f-12 rounded-pill">                    {{Member.role}}
+                    </h6>
+                    <p class="m-0">{{ Member.name }}</p>
+                  </td>
+                  <td>
+                    <h6 class="text-muted">
+                      <i class="fas fa-circle text-c-green f-10 m-r-15"></i
+                      >{{ Member.identityDocument }} : {{Member.identityNumber}}
+                    </h6>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="Member.accountApproved; else approveButton">
+                        <button type="button" class="btn label theme-bg2 text-white f-12 rounded-pill">{{ Member.accountApproved }}</button>
+                      </ng-container>
+                      <ng-template #approveButton>
+                        <button class="btn label theme-bg text-white f-12 rounded-pill" (click)="approveMember(Member)">Approve</button>
+                      </ng-template>
+                    <!-- <a
+                      href="javascript:"
+                      class="label theme-bg2 text-white f-12 rounded-pill"
+                      >Reject</a
+                    ><a
+                      href="javascript:"
+                      class="label theme-bg text-white f-12 rounded-pill"
+                      >Approve</a
+                    > -->
+                  </td>
+                  <td>
+                    <div class="action-buttons me-4">
+                        <!-- Edit button -->
+                        <button class="action-button m-2 px-2" (click)="editModal(Member)"  >
+                          <i class="fa fa-edit text-warning" aria-hidden="true"></i>
+                        </button>
+                        <!-- Delete button -->
+                        <button class="action-button1 m-2" (click)="deleteModal(Member)" >
+                          <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-around mt-3">
+            <div class="col-md-12">
+              <pagination-controls
+                previousLabel="Prev"
+                nextLabel="Next"
+                [responsive]="true"
+                (pageChange)="handlePageChange($event)"
+              ></pagination-controls>
+            </div>
+            <div>
+              <div class="mb-3 d-flex justify-content-around">
+                <svg width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.46225 4.18921L4.28027 7.37119L5.34093 8.43185L6.74979 7.02299L6.74979 16.8259L5.34093 15.417L4.28027 16.4777L7.46225 19.6597L10.6442 16.4777L9.58357 15.417L8.24979 16.7508L8.24979 7.09807L9.58357 8.43185L10.6442 7.37119L7.46225 4.18921ZM20.2499 5.24989H11.9999V6.74989H20.2499V5.24989ZM20.2499 17.2499H11.9999V18.7499H20.2499V17.2499ZM11.9999 11.2499H20.2499V12.7499H11.9999V11.2499Z" fill="#080341"/>
+                  </svg>
+                <select  class="form-control" (change)="handlePageSizeChange($event)">
+                  <option *ngFor="let size of pageSizes" [ngValue]="size">
+                    {{ size }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+      </app-card>
+    </div>
+  </div>
