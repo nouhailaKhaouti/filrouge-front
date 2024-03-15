@@ -9,61 +9,128 @@
       <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
         {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
       </button> -->
+      <form (ngSubmit)="submitForm()" >
       <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
-        <mat-step [stepControl]="firstFormGroup">
-          <form [formGroup]="firstFormGroup">
+        <mat-step [stepControl]="firstFormGroup" >
+          <div [formGroup]="firstFormGroup">
             <ng-template matStepLabel>Fill Exam info</ng-template>
             <p>
-              <div class="form-outline" data-mdb-input-init>
-                <input type="text" id="form12" class="form-control" />
-                <label class="form-label" for="form12">Example label</label>
-              </div>
-            <mat-form-field appearance="outline">
-              <mat-label>Year</mat-label>
-              <input matInput placeholder="Placeholder">
-              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-form-field class="mx-5 text-white">
+                <mat-label>Exam Reference</mat-label>
+                <input matInput formControlName="secondCtrl" placeholder=""  [(ngModel)]="concour.reference"
+                       required>
+                <mat-icon matSuffix class="text-white">sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+            </p>
+            <p>
+            <mat-form-field class="mx-5 text-white">
+              <mat-label>Oral exams Date</mat-label>
+              <input matInput type="date" [matDatepicker]="picker1">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 (dateChange)="onDateChange($event, 'dateConcoursEcrit')"></mat-datepicker>
             </mat-form-field>
-          </p>
-            <p class="d-flex justify-content-start">
-            <mat-form-field appearance="outline" class="mx-2">
-              <mat-label>Writing exams Date</mat-label>
-              <input matInput text="Date" placeholder="Placeholder">
-              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Writing exams Date</mat-label>
-              <input matInput text="Date" placeholder="Placeholder" class="form-control">
-              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            <mat-form-field class="text-white">
+              <mat-label>Oral exams Date</mat-label>
+              <input matInput type="date" [matDatepicker]="picker2" >
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2 (dateChange)="onDateChange($event, 'dateConcoursOral')"></mat-datepicker>
             </mat-form-field>
           </p>
             <div>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-button matStepperNext class="btn btn-outline-info border">Next</button>
             </div>
-          </form>
+          </div>
         </mat-step>
         <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Fill out your address</ng-template>
-            <mat-form-field>
-              <mat-label>Address</mat-label>
-              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required>
+          <div [formGroup]="secondFormGroup">
+            <p>
+            <ng-template matStepLabel>Fill out info related to exam subjects</ng-template>
+            <mat-form-field class="mx-5">
+              <mat-label>Select the choosing Sector</mat-label>
+              <mat-select [(ngModel)]="concour.filiere">
+                <mat-option value="informatique">informatique</mat-option>
+              </mat-select>
             </mat-form-field>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+            <!-- <mat-form-field >
+              <mat-label>Select the level</mat-label>
+              <mat-select id="niveau" [(ngModel)]="concour.niveau">
+                <mat-option value="MASTER">Master</mat-option>
+                <mat-option value="LICENCE">Licence</mat-option>
+                <mat-option value="CYCLE_D_INGENIEUR_1">Cycle d'ingenieur premiere année</mat-option>
+                <mat-option value="CYCLE_D_INGENIEUR_2">Cycle d'ingenieur deuxieme année</mat-option>
+              </mat-select>
+            </mat-form-field> -->
+           </p>
+            <form  class="mb-5" (ngSubmit)="addSubject()" >
+              <mat-form-field hintLabel="Max 10 characters"  class="mx-5 text-white">
+                <mat-label>Subject reference</mat-label>
+                <input matInput #input maxlength="10" [(ngModel)]="module.label" placeholder="Ex. Nougat">
+                <mat-hint align="end">{{input.value.length}}/10</mat-hint>
+              </mat-form-field>
+              <mat-form-field floatLabel="always" class="me-5 text-white">
+                <mat-label>Coef</mat-label>
+                <input matInput type="number" [(ngModel)]="module.coefModule" class="example-right-align" placeholder="0">
+                <span matTextPrefix>%&nbsp;&nbsp;</span>
+              </mat-form-field>
+                <button mat-button type="submit" class="btn btn-outline-success border">+</button>
+            </form>
+            <div class="table-responsive col-sm-8 ms-5">
+              <table class="table table-hover bg-dark">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Subject Name</th>
+                    <th>Coef</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let module of modules">
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>{{module.label}}</td>
+                    <td>{{module.coefModule}} %</td>
+                    <td>
+                      <button class="action-button1 m-2" (click)="removeSubject(module)" >
+                      <i class="fa fa-trash" ></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </form>
+            <div>
+              <button mat-button matStepperPrevious class="btn btn-outline-info border">Back</button>
+              <button mat-button matStepperNext class="btn btn-outline-info border">Next</button>
+            </div>
+          </div>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Done</ng-template>
-          <p>You are now done.</p>
+          <mat-form-field floatLabel="always" class="me-5 text-white">
+            <mat-label>Nombre of place availible</mat-label>
+            <input matInput type="number" [(ngModel)]="concour.nbreplace" class="example-right-align" placeholder="0">
+            <span matTextPrefix>&nbsp;&nbsp;</span>
+          </mat-form-field>
+          <mat-form-field floatLabel="always" class="me-5 text-white">
+            <mat-label>Nombre of place for the writing exam</mat-label>
+            <input matInput type="number" [(ngModel)]="concour.nbreplaceConcoursEcrit" class="example-right-align" placeholder="0">
+            <span matTextPrefix>&nbsp;&nbsp;</span>
+          </mat-form-field>
+          <mat-form-field floatLabel="always" class="me-5 text-white">
+            <mat-label>Nombre of place for the oral exam</mat-label>
+            <input matInput type="number" [(ngModel)]="concour.nbreplaceConcoursOral" class="example-right-align" placeholder="0">
+            <span matTextPrefix>&nbsp;&nbsp;</span>
+          </mat-form-field>
           <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-button class="btn btn-outline-info border" matStepperPrevious>Back</button>
+            <button mat-button class="btn btn-outline-success border" type="submit">Submit</button>
+            <button mat-button class="btn btn-outline-warning border" (click)="stepper.reset()">Reset</button>
           </div>
         </mat-step>
       </mat-stepper>
+    </form>
         </app-card>
     </div>
 </div>

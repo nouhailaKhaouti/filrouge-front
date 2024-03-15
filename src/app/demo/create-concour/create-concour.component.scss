@@ -5,3 +5,16 @@
   .mat-mdc-form-field {
     margin-top: 16px;
   }
+
+  .action-button1:hover {
+    background-color: red; 
+    border-radius: 15%;
+    color: white;
+}
+
+.action-button1 {
+  background-color: transparent;
+  border: none;
+  width: 30%;
+  height: 100%;
+}
