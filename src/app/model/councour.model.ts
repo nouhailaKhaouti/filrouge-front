@@ -1,3 +1,4 @@
+import { Departement } from "./departement.model"
 import { Module } from "./module.model"
 
 export interface Concour{
@@ -14,7 +15,8 @@ export interface Concour{
 }
 
 export interface Filiere{
-    label:String
+    label:string
+    departement:Departement
 }
 
 export interface Concours{

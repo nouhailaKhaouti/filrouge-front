@@ -63,7 +63,10 @@ export class CreateConcourComponent {
     nbreplaceConcoursEcrit:0,
     nbreplaceConcoursOral:0,
     filiere: {
-       label:""
+       label:"",
+       departement:{
+        label:""
+       }
     } ,
     niveau:"",
     modules:[]

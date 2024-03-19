@@ -1,0 +1,87 @@
+<div #addFiliere class="modal fade" id="addFiliere" tabindex="-1" aria-labelledby="addFiliereModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <div class="modal-header bg-info ">
+          <h5 class="modal-title text-white " id="addFiliereModalLabel">
+            Add A New Field
+          </h5>
+          <button type="button" class="btn btn-close text-white" (click)="closeModal()"
+          aria-label="Close"></button>
+        </div>
+        <div class="modal-body card text-dark d-flex justify-content-around">
+          <form (ngSubmit)="submitForm()">
+              <div class="card-body text-center">
+                <div class="mb-4">
+                  <svg height="80px" width="80px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 473.935 473.935" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle style="fill:#b6eefc;" cx="236.967" cy="236.967" r="236.967"></circle> <path style="fill:#22a3b9;" d="M236.952,473.935c78.533,0,148.115-38.222,191.232-97.058c-8.011-11.48-39.525-45.025-145.593-70.548 c0-24.082-2.398-38.507-2.398-38.507s31.289-43.337,33.691-103.513c0-9.568,4.7-77.436-77.017-80.508c0-0.03,0-0.079,0-0.101 c-0.202,0-0.382,0.045-0.602,0.045c-0.21,0-0.385-0.045-0.595-0.045c0,0.022,0,0.075,0,0.101 c-81.702,3.068-77.017,70.941-77.017,80.505c2.398,60.175,33.691,103.513,33.691,103.513s-2.417,14.425-2.417,38.507 C86.664,331.174,54.08,363.623,45.044,375.908C88.104,435.286,157.997,473.935,236.952,473.935z"></path> <circle style="fill:#00A31F;" cx="332.233" cy="363.515" r="57.062"></circle> <g> <path style="fill:#FFFFFF;" d="M370.572,363.361c0,4.962-4.022,8.988-8.999,8.988h-58.559c-4.965,0-8.995-4.026-8.995-8.988l0,0 c0-4.969,4.03-8.995,8.995-8.995h58.559C366.549,354.362,370.572,358.392,370.572,363.361L370.572,363.361z"></path> <path style="fill:#FFFFFF;" d="M332.293,401.632c-4.965,0-8.992-4.026-8.992-8.995v-58.559c0-4.969,4.026-8.995,8.992-8.995l0,0 c4.969,0,8.999,4.026,8.999,8.995v58.559C341.292,397.606,337.262,401.632,332.293,401.632L332.293,401.632z"></path> </g> </g></svg>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" id="label" [(ngModel)]="filiere.label" placeholder="Field Name Ex:Genie info" />
+                </div>
+                <div class="input-group mb-3">
+                    <select *ngFor="let departement of departements "  class="form-control" id="label" [(ngModel)]="filiere.departement.label" placeholder="Choose Sector Departement" >
+                        <option value="departement.label">{{departement.label}}</option>
+                    </select>
+                  </div>
+                <button  class="btn btn-info mb-4" (click)="closeModal()">Close</button>
+                <button  class="btn btn-success mb-4" type="submit">Submit</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-12 bg-light">
+          <app-card
+          cardTitle="Filieres"
+          cardClass="Filieres"
+          blockClass="p-0"
+          >
+          <button  class="btn btn-info position-absolute top-0 end-0 border rounded-3 m-5" (click)="openModal()" type="submit"> + </button>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <!-- if data not exist -->
+                <div *ngIf="Members.length <= 0" class="alert alert-primary d-flex align-items-center mx-5 mb-3"role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    <div>
+                      there's no Sector in our data base for the moment please try again later, or be the first to register new Sector.
+                    </div>
+                </div>
+              <tbody *ngFor="let filiere of Filieres ">
+                
+                  <tr class="unread">
+                    <td>
+                      <img
+                        class="rounded-circle"
+                        style="width: 40px"
+                        src="assets/images/user/avatar-3.jpg"
+                        alt="activity-user"
+                      />
+                    </td>
+                    <td>
+                      <h6 class="mb-1 label bg-black text-white f-12 rounded-pill">
+                      </h6>
+                      <p class="m-0">{{ filiere.label }}</p>
+                    </td>
+                    <td>
+                        <h6 class="mb-1 label bg-black text-white f-12 rounded-pill"> {{filiere.departement.label}}
+                        </h6>
+                    </td>
+                    <td>
+                      <div class="action-buttons me-4 mt-2">
+                          <!-- Delete button -->
+                          <button class="action-button1 bg-danger m-2" (click)="deleteModal(filiere)" > 
+                            <i class="fa fa-trash text-danger" ></i>
+                          </button>
+                      </div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </app-card>
+      </div>
+    </div>
