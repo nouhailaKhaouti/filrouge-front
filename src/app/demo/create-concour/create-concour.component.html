@@ -17,7 +17,7 @@
             <p>
               <mat-form-field class="mx-5 text-white">
                 <mat-label>Exam Reference</mat-label>
-                <input matInput formControlName="secondCtrl" placeholder=""  [(ngModel)]="concour.reference"
+                <input matInput  placeholder=""  [formControl]="reference"
                        required>
                 <mat-icon matSuffix class="text-white">sentiment_very_satisfied</mat-icon>
               </mat-form-field>
@@ -25,21 +25,21 @@
             <p>
             <mat-form-field class="mx-5 text-white">
               <mat-label>Oral exams Date</mat-label>
-              <input matInput type="date" [matDatepicker]="picker1">
-              <mat-hint>MM/DD/YYYY</mat-hint>
-              <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1 (dateChange)="onDateChange($event, 'dateConcoursEcrit')"></mat-datepicker>
+              <input matInput  [matDatepicker]="picker1" [formControl]="date1">
+              <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+              <mat-datepicker-toggle matIconSuffix [for]="picker1" ></mat-datepicker-toggle>
+              <mat-datepicker #picker1  (dateChange)="onDateChange($event, 'dateConcoursEcrit')"></mat-datepicker>
             </mat-form-field>
             <mat-form-field class="text-white">
               <mat-label>Oral exams Date</mat-label>
-              <input matInput type="date" [matDatepicker]="picker2" >
+              <input matInput [matDatepicker]="picker2" [formControl]="date2">
               <mat-hint>MM/DD/YYYY</mat-hint>
-              <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-              <mat-datepicker #picker2 (dateChange)="onDateChange($event, 'dateConcoursOral')"></mat-datepicker>
+              <mat-datepicker-toggle matIconSuffix [for]="picker2" ></mat-datepicker-toggle>
+              <mat-datepicker #picker2 ></mat-datepicker>
             </mat-form-field>
           </p>
             <div>
-              <button mat-button matStepperNext class="btn btn-outline-info border">Next</button>
+              <button mat-button type="button" matStepperNext class="btn btn-outline-info border">Next</button>
             </div>
           </div>
         </mat-step>
@@ -49,7 +49,7 @@
             <ng-template matStepLabel>Fill out info related to exam subjects</ng-template>
             <mat-form-field class="mx-5">
               <mat-label>Select the choosing Sector</mat-label>
-              <mat-select [(ngModel)]="concour.filiere">
+              <mat-select [(ngModel)]="concour.filiere.label">
                 <mat-option value="informatique">informatique</mat-option>
               </mat-select>
             </mat-form-field>
@@ -66,7 +66,7 @@
             <form  class="mb-5" (ngSubmit)="addSubject()" >
               <mat-form-field hintLabel="Max 10 characters"  class="mx-5 text-white">
                 <mat-label>Subject reference</mat-label>
-                <input matInput #input maxlength="10" [(ngModel)]="module.label" placeholder="Ex. Nougat">
+                <input matInput #input maxlength="10" [(ngModel)]="module.reference" placeholder="Ex. Nougat">
                 <mat-hint align="end">{{input.value.length}}/10</mat-hint>
               </mat-form-field>
               <mat-form-field floatLabel="always" class="me-5 text-white">
@@ -89,7 +89,7 @@
                 <tbody *ngFor="let module of modules">
                   <tr>
                     <th scope="row">1</th>
-                    <td>{{module.label}}</td>
+                    <td>{{module.reference}}</td>
                     <td>{{module.coefModule}} %</td>
                     <td>
                       <button class="action-button1 m-2" (click)="removeSubject(module)" >
@@ -101,8 +101,8 @@
               </table>
             </div>
             <div>
-              <button mat-button matStepperPrevious class="btn btn-outline-info border">Back</button>
-              <button mat-button matStepperNext class="btn btn-outline-info border">Next</button>
+              <button mat-button matStepperPrevious type="button" class="btn btn-outline-info border">Back</button>
+              <button mat-button matStepperNext type="button" class="btn btn-outline-info border">Next</button>
             </div>
           </div>
         </mat-step>

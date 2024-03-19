@@ -16,3 +16,13 @@ export interface Concour{
 export interface Filiere{
     label:String
 }
+
+export interface Concours{
+    reference:string,
+    anneeConcours:Number,
+    dateConcoursEcrit:string,
+    dateConcoursOral:string,
+    nbreplace:Number,
+    nbreplaceConcoursEcrit:Number,
+    nbreplaceConcoursOral:Number
+}

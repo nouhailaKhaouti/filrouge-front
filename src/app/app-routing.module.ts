@@ -6,6 +6,8 @@ import { authGuard } from './guards/auth.guard';
 import AuthSigninComponent from './demo/pages/authentication/auth-signin/auth-signin.component';
 import { MembersComponent } from './demo/members/members.component';
 import { CreateConcourComponent } from './demo/create-concour/create-concour.component';
+import { FullCalendarComponent } from './demo/full-calendar/full-calendar.component';
+import { ConcoursComponent } from './demo/concours/concours.component';
 
 const routes: Routes = [
   {
@@ -13,10 +15,10 @@ const routes: Routes = [
     pathMatch: 'full',
 
   },  
+  
   {
     path: '',
     component: AdminComponent,
-    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -30,6 +32,14 @@ const routes: Routes = [
       {
         path: 'members',
         component:MembersComponent,
+      },
+      {
+        path: 'concours',
+        component:ConcoursComponent,
+      },
+      {
+        path: 'ExamsCalendar',
+        component:FullCalendarComponent,
       },
       {
         path: 'CreateConcour',

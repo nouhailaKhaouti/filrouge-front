@@ -1,4 +1,12 @@
+import { Concours } from "./councour.model"
+
 export interface Module{
     coefModule:Number,
-    label:string
+    reference:string
+}
+
+
+export interface ConcoursModule{
+    concours:Concours
+    reference:string
 }

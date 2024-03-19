@@ -7,6 +7,7 @@ export interface Member{
     identityNumber:String,
     accountApproved:boolean|false,
     role:string|null
+    email:string
 }
 
 export interface MemberPagination{

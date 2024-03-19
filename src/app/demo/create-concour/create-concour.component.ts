@@ -11,11 +11,9 @@ import {MatDatepickerInputEvent, MatDatepickerModule} from '@angular/material/da
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Module } from 'src/app/model/module.model';
 import Swal from 'sweetalert2';
-import { Concour,Filiere } from 'src/app/model/councour.model';
+import { Concour } from 'src/app/model/councour.model';
 import { ConcourService } from 'src/app/services/concour/concour.service';
-
-
-
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-create-concour',
   standalone: true,
@@ -36,6 +34,12 @@ import { ConcourService } from 'src/app/services/concour/concour.service';
   styleUrl: './create-concour.component.scss'
 })
 export class CreateConcourComponent {
+
+
+  date1 = new FormControl();
+  date2 = new FormControl();
+  reference = new FormControl();
+
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
@@ -48,12 +52,12 @@ export class CreateConcourComponent {
   modules:Module[]=[];
   module:Module={
     coefModule:0,
-     label:"",
+    reference:"",
   }
   concour:Concour={
     reference:"",
     anneeConcours:0,
-    dateConcoursEcrit:"", // Initialize as Date objects
+    dateConcoursEcrit:"", 
     dateConcoursOral: "",
     nbreplace:0,
     nbreplaceConcoursEcrit:0,
@@ -63,15 +67,16 @@ export class CreateConcourComponent {
     } ,
     niveau:"",
     modules:[]
-  }
+  };
+
   addSubject() {
     const moduleExists = this.modules.some(existingModule => {
-      return existingModule.label === this.module.label && existingModule.coefModule === this.module.coefModule;
+      return existingModule.reference === this.module.reference;
     });
     if (!moduleExists) {
       const newModule: Module = {
         coefModule: this.module.coefModule,
-        label: this.module.label
+        reference: this.module.reference
       };
       
       this.modules.push(newModule);
@@ -86,27 +91,36 @@ export class CreateConcourComponent {
   resetModule(){
     this.module={
       coefModule:0,
-      label:"",
+      reference:"",
     }
   }
 
   removeSubject(module:Module){
     const moduleIndex = this.modules.findIndex(existingModule => {
-      return existingModule.label === module.label && existingModule.coefModule === module.coefModule;
+      return existingModule.reference === module.reference;
     });
     this.modules = this.modules.filter((_, index) => index !== moduleIndex);
 
   }
 
   onDateChange(event: Event, propertyName: string) {
+    console.log("dkhal");
     const selectedDate = (event.target as HTMLInputElement).value;
+    console.log(selectedDate);
     this.concour[propertyName] = selectedDate;
+    console.log(this.concour[propertyName]);
   }
 
 
   submitForm(){
     this.concour.niveau="MASTER";
     this.concour.anneeConcours=2024;
+    this.concour.modules=this.modules;
+    this.concour.dateConcoursEcrit=this.date1.value;
+    this.concour.dateConcoursOral=this.date2.value;
+    this.concour.reference=this.reference.value;
+    this.concour.filiere.label="Filiere 1"
+    console.log(this.concour);
     this.concourService.addConcour(this.concour).subscribe(
       (response) => {
         console.log('concour data sent successfully:', response);

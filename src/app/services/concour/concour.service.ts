@@ -15,4 +15,12 @@ export class ConcourService {
     return this.http.post<Concour>(`${this.apiUrl}`, Concour);
   }
 
+  getAllConcoursData(): Observable<Concour[]> {
+    return this.http.get<Concour[]>(`${this.apiUrl}`);
+  }
+
+  getConcoursData(reference:string): Observable<Concour> {
+    return this.http.get<Concour>(`${this.apiUrl}${reference}`);
+  }
+
 }

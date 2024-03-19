@@ -1,9 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Member } from 'src/app/model/member.model';
 import { MemberService } from 'src/app/services/member/member.service';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDatepickerInputEvent, MatDatepickerModule} from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,12 +19,22 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [SharedModule,
   FormsModule,
-  NgxPaginationModule],
+  NgxPaginationModule,
+  MatButtonModule,
+  MatStepperModule,
+  FormsModule,
+  ReactiveFormsModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatIconModule,
+  MatDatepickerModule,
+  MatSelectModule],
+  providers:[provideNativeDateAdapter()],
   templateUrl: './members.component.html',
   styleUrl: './members.component.scss'
 })
 export class MembersComponent {
-  @ViewChild('memberModal') memberModal: any;
+  @ViewChild('profAdd') memberModal: any;
   @ViewChild('roleModal') roleModal: any;
   currentmember: Member;
   currentIndex = -1;
@@ -34,7 +52,8 @@ export class MembersComponent {
     identityDocument:'',
     identityNumber:'',
     accountApproved:false,
-    role:''
+    role:'PROF',
+    email:''
   };
   constructor(private MemberService: MemberService) { }
 
@@ -106,24 +125,20 @@ export class MembersComponent {
     
     this.Member={
       num:0,
-      name:'',
-      familyName:'',
-      nationality:'',
-      identityDocument:'',
-      identityNumber:'',
+      name:'nouhaila',
+      familyName:'khaouti',
+      nationality:'morocco',
+      identityDocument:'CIN',
+      identityNumber:'EE123456',
       accountApproved:false,
-      role:''
+      role:'PROF',
+      email:'jaouralive90@gmail.com'
     };
 
   }
 
-  editModal(member:Member){
-    this.Member=member;
-    this.openModal();
-  }
   deleteModal(member:Member){
-    this.Member=member;
-    this.openModal();
+    this.deleteMember(member);
   }
 
   openRoleModal(num:Number): void {
@@ -170,6 +185,7 @@ export class MembersComponent {
   }
 
   submitForm(): void {
+    this.closeModal();
     this.MemberService.addMemberData(this.Member).subscribe(
       (response) => {
         console.log('Member data sent successfully:', response);
@@ -199,11 +215,39 @@ export class MembersComponent {
   }
 
   submitFormRole(): void {
+    this.closeRoleModal();
     this.MemberService.changeRole(this.Member.role,this.Member.num).subscribe(
       (response) => {
         console.log('Member data sent successfully:', response);
           this.retrievemembers();
           Swal.fire('Success', 'the Role is Updated successfully!', 'success');
+        },
+        (error) => {
+          console.error('Error sending competition data:', error);
+          // Check if error.error.error is an array
+          if (Array.isArray(error.error.error)) {
+            const errorMessage = error.error.error.join('<br>'); 
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              html: errorMessage  
+            });
+          } else {
+            console.log('Unexpected error structure:', error.error);
+            Swal.fire('Error', error.error, 'error'); 
+          }
+  
+        }
+    );
+    // this.closeModal();
+  }
+
+  deleteMember(member:Member): void {
+    this.MemberService.deleteMember(member).subscribe(
+      (response) => {
+        console.log('Member data deleted successfully:', response);
+          this.retrievemembers();
+          Swal.fire('Success', 'the user deleted successfully!', 'success');
         },
         (error) => {
           console.error('Error sending competition data:', error);

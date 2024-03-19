@@ -66,6 +66,13 @@ const NavigationItems = [
         icon: 'feather icon-server',
         url: '/CreateConcour',
       },
+      {
+        id: 'fullCalendar',
+        title: 'Exams Calendar',
+        type: 'item',
+        icon: 'feather icon-server',
+        url: '/ExamsCalendar',
+      },
     ],
   },
   // {

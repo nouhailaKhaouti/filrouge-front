@@ -28,13 +28,6 @@ export class MemberService {
     });
   }
 
-
-  // // GET request to fetch Member data
-  // getMembersData(params: any): Observable<any> {
-  //   return this.http.post<any>(`${this.apiUrl}/Members`, { params });
-  // }
-
-  // POST request to add Member data
   addMemberData(Member: Member): Observable<Member> {
     return this.http.post<Member>(`${this.apiUrl}`, Member);
   }
@@ -46,6 +39,10 @@ export class MemberService {
       reportProgress: true,
       params: httpParams
     });  
+  }
+
+  deleteMember(Member: Member): Observable<Member> {
+    return this.http.delete<Member>(`${this.apiUrl}${Member.num}`);
   }
 
   changeRole(role: string, num: Number): Observable<Member> {
