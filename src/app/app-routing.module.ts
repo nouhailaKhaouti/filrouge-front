@@ -8,6 +8,8 @@ import { MembersComponent } from './demo/members/members.component';
 import { CreateConcourComponent } from './demo/create-concour/create-concour.component';
 import { FullCalendarComponent } from './demo/full-calendar/full-calendar.component';
 import { ConcoursComponent } from './demo/concours/concours.component';
+import { DepartementComponent } from './demo/departement/departement.component';
+import { FiliereComponent } from './demo/filiere/filiere.component';
 
 const routes: Routes = [
   {
@@ -44,6 +46,14 @@ const routes: Routes = [
       {
         path: 'CreateConcour',
         component:CreateConcourComponent,
+      },
+      {
+        path: 'departement',
+        component:DepartementComponent,
+      },
+      {
+        path: 'field',
+        component:FiliereComponent,
       },
       {
         path: 'basic',

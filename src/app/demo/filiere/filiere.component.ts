@@ -1,22 +1,33 @@
 import { Component, ViewChild } from '@angular/core';
+import { FormControl, FormsModule } from '@angular/forms';
 import { Filiere } from 'src/app/model/councour.model';
 import { Departement } from 'src/app/model/departement.model';
 import { DepartementService } from 'src/app/services/departement/departement.service';
 import { FiliereService } from 'src/app/services/filiere/filiere.service';
+import { SharedModule } from 'src/app/theme/shared/shared.module';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-filiere',
   standalone: true,
-  imports: [],
+  imports: [FormsModule,
+  SharedModule],
   templateUrl: './filiere.component.html',
   styleUrl: './filiere.component.scss'
 })
 export class FiliereComponent {
-  @ViewChild('FiliereAdd') FiliereModal: any;
+  @ViewChild('addFiliere') FiliereModal: any;
   filieres: Filiere[] = [];
   departements:Departement[]=[];
-  filiere: Filiere 
+  filiere: Filiere={
+    label:"",
+    departement:{
+      label:""
+    }
+  }
+
+  label=new FormControl();
+  departement=new FormControl();
   constructor(private FiliereService: FiliereService,private departementService:DepartementService) { }
 
   ngOnInit(): void {
@@ -72,6 +83,9 @@ export class FiliereComponent {
 
   submitForm(): void {
     this.closeModal();
+    console.log(this.departement.value);
+    this.filiere.label=this.label.value;
+    this.filiere.departement.label=this.departement.value;
     this.FiliereService.addFiliere(this.filiere).subscribe(
       (response) => {
         console.log('Filiere data sent successfully:', response);

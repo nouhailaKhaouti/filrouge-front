@@ -11,9 +11,10 @@ import {MatDatepickerInputEvent, MatDatepickerModule} from '@angular/material/da
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Module } from 'src/app/model/module.model';
 import Swal from 'sweetalert2';
-import { Concour } from 'src/app/model/councour.model';
+import { Concour, Filiere } from 'src/app/model/councour.model';
 import { ConcourService } from 'src/app/services/concour/concour.service';
 import { formatDate } from '@angular/common';
+import { FiliereService } from 'src/app/services/filiere/filiere.service';
 @Component({
   selector: 'app-create-concour',
   standalone: true,
@@ -71,6 +72,24 @@ export class CreateConcourComponent {
     niveau:"",
     modules:[]
   };
+  filieres: Filiere[] = [];
+  ngOnInit(): void {
+    // this.fetchFiliereData();
+    this.retrieveFilieres();
+  }
+
+  retrieveFilieres(): void {
+
+    this.FiliereService.getFilieresData()
+    .subscribe(
+      response => {
+        this.filieres = response;
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      });
+  }
 
   addSubject() {
     const moduleExists = this.modules.some(existingModule => {
@@ -149,5 +168,5 @@ export class CreateConcourComponent {
         }
     );
   }
-  constructor(private _formBuilder: FormBuilder,private concourService:ConcourService) {}
+  constructor(private _formBuilder: FormBuilder,private concourService:ConcourService,private FiliereService: FiliereService) {}
 }

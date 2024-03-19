@@ -75,6 +75,28 @@ const NavigationItems = [
       },
     ],
   },
+  {
+    id: 'ui-element',
+    title: 'UNIVERSITY INFO',
+    type: 'group',
+    icon: 'icon-ui',
+    children: [
+      {
+        id: 'basic',
+        title: 'Departement',
+        type: 'item',
+        icon: 'feather icon-pie-chart',
+        url: '/departement',
+      },
+      {
+        id: 'fullCalendar',
+        title: 'Departement fields',
+        type: 'item',
+        icon: 'feather icon-file-text',
+        url: '/field',
+      },
+    ],
+  },
   // {
   //   id: 'forms',
   //   title: 'Forms & Tables',

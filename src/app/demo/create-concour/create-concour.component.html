@@ -50,7 +50,7 @@
             <mat-form-field class="mx-5">
               <mat-label>Select the choosing Sector</mat-label>
               <mat-select [(ngModel)]="concour.filiere.label">
-                <mat-option value="informatique">informatique</mat-option>
+                <mat-option *ngFor="let filiere of filieres "  [value]="filiere.label">{{filiere.label}}</mat-option>
               </mat-select>
             </mat-form-field>
             <!-- <mat-form-field >

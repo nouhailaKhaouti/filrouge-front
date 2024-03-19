@@ -5,12 +5,14 @@ import { Concour } from 'src/app/model/councour.model';
 import { ConcoursModule, Module } from 'src/app/model/module.model';
 import { ConcourService } from 'src/app/services/concour/concour.service';
 import { ModuleService } from 'src/app/services/module/module.service';
+import { SharedModule } from 'src/app/theme/shared/shared.module';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-concours',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,
+  SharedModule],
   templateUrl: './concours.component.html',
   styleUrl: './concours.component.scss'
 })
@@ -33,7 +35,7 @@ export class ConcoursComponent {
     modules:[]
   };
   concoursModule:ConcoursModule={
-    concours:{
+    concour:{
       reference:"",
       anneeConcours:0,
       dateConcoursEcrit:"", 
@@ -73,8 +75,10 @@ export class ConcoursComponent {
   }
 
   submitModuleForm(): void {
-    this.concoursModule.concours.reference=this.reference;
+    this.concoursModule.concour.reference=this.reference;
     this.concoursModule.reference=this.module.reference;
+    console.log(this.concoursModule);
+    if(this.concoursModule.reference){
     this.moduleService.addModule(this.concoursModule).subscribe(
       (response) => {
         console.log('Module data sent successfully:', response);
@@ -97,6 +101,9 @@ export class ConcoursComponent {
   
         }
     );
+   }else{
+    Swal.fire('Error', 'please enter all the required data to register this subject', 'error'); 
+   }
   }
   deleteModule(module:Module): void {
     this.moduleService.deleteModule(module.reference).subscribe(

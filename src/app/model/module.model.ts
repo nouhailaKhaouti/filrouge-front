@@ -7,6 +7,6 @@ export interface Module{
 
 
 export interface ConcoursModule{
-    concours:Concours
+    concour:Concours
     reference:string
 }

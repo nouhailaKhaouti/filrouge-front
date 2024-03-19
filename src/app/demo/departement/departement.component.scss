@@ -1,0 +1,44 @@
+.action-buttons {
+    position: relative; /* Change to relative to position the buttons relative to this container */
+}
+
+.action-button,
+.action-button1 {
+    position: absolute; /* Position the buttons absolutely within the container */
+    opacity: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    width: 30%;
+    height: 80%;
+}
+
+.action-buttons:hover .action-button,
+.action-buttons:hover .action-button1 {
+    opacity: 1; 
+}
+
+.action-button i,
+.action-button1 i {
+    color: #000; 
+}
+
+.action-button:hover{
+    background-color: yellow;
+    border-radius: 20px;
+    color: white;
+}
+.action-button1:hover {
+    background-color: red; 
+    border-radius: 20px;
+    color: white;
+}
+
+.action-button1 {
+    left: 40px; 
+}
+
+.custom-modal-dialog {
+    max-width: 90%;
+  }

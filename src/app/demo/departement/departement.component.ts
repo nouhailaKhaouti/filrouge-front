@@ -1,20 +1,24 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
 import { Departement } from 'src/app/model/departement.model';
 import { DepartementService } from 'src/app/services/departement/departement.service';
+import { SharedModule } from 'src/app/theme/shared/shared.module';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-departement',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,SharedModule],
   templateUrl: './departement.component.html',
   styleUrl: './departement.component.scss'
 })
 export class DepartementComponent {
-  @ViewChild('departementAdd') DepartementModal: any;
+  @ViewChild('addDepartement') DepartementModal: any;
   departements: Departement[] = [];
-  departement: Departement 
+  departement: Departement ={
+    label:""
+  }
+ label=new FormControl();
   constructor(private DepartementService: DepartementService) { }
 
   ngOnInit(): void {
@@ -56,6 +60,7 @@ export class DepartementComponent {
 
   submitForm(): void {
     this.closeModal();
+    this.departement.label=this.label.value;
     this.DepartementService.addDepartement(this.departement).subscribe(
       (response) => {
         console.log('Departement data sent successfully:', response);
@@ -82,6 +87,7 @@ export class DepartementComponent {
   }
 
   deleteDepartement(Departement:Departement): void {
+    console.log(Departement);
     this.DepartementService.deleteDepartement(Departement.label).subscribe(
       (response) => {
         console.log('Departement data deleted successfully:', response);
