@@ -10,11 +10,24 @@ import { FullCalendarComponent } from './demo/full-calendar/full-calendar.compon
 import { ConcoursComponent } from './demo/concours/concours.component';
 import { DepartementComponent } from './demo/departement/departement.component';
 import { FiliereComponent } from './demo/filiere/filiere.component';
+import { NiveauComponent } from './demo/niveau/niveau.component';
+import { InscriptionComponent } from './demo/inscription/inscription.component';
 
 const routes: Routes = [
   {
     path: '',component:AuthSigninComponent,
     pathMatch: 'full',
+
+  },  
+
+  {
+    path: 'levels',
+    component: NiveauComponent
+
+  },  
+  {
+    path: 'subscription/:niveau',
+    component: InscriptionComponent
 
   },  
   

@@ -19,6 +19,10 @@ export class ConcourService {
     return this.http.get<Concour[]>(`${this.apiUrl}`);
   }
 
+  getAllConcoursDataByFiliere(filiere: string,niveau:string): Observable<Concour[]> {
+    return this.http.get<Concour[]>(`${this.apiUrl}Filiere/${filiere}/${niveau}`);
+  }
+
   getConcoursData(reference:string): Observable<Concour> {
     return this.http.get<Concour>(`${this.apiUrl}${reference}`);
   }

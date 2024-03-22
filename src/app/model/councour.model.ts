@@ -28,3 +28,7 @@ export interface Concours{
     nbreplaceConcoursEcrit:Number,
     nbreplaceConcoursOral:Number
 }
+
+export interface Reference{
+    reference:string
+}
