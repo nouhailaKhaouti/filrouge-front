@@ -11,22 +11,6 @@ export class ChoixService {
 
   constructor(private http: HttpClient) { }
 
-
-  getAllInscriptionByConcourPdf(reference:string): Observable<Inscription[]> {
-    return this.http.get<Inscription[]>(`${this.apiUrl}${reference}`);
-  }
-
-  getAllPreselectionInscriptionByConcourPdf(reference:string): Observable<Inscription[]> {
-    return this.http.get<Inscription[]>(`${this.apiUrl}pdf/preselection/${reference}`);
-  }
-
-  getAllWritingInscriptionByConcourPdf(reference:string): Observable<InscriptionResult[]> {
-    return this.http.get<InscriptionResult[]>(`${this.apiUrl}pdf/writing/${reference}`);
-  }
-
-  getAllAdmisInscriptionByConcourPdf(reference:string): Observable<InscriptionResult[]> {
-    return this.http.get<InscriptionResult[]>(`${this.apiUrl}pdf/admis/${reference}`);
-  }
   getAllInscriptionByConcour(reference:string): Observable<InscriptionResult[]> {
     return this.http.get<InscriptionResult[]>(`${this.apiUrl}${reference}`);
   }
@@ -41,6 +25,18 @@ export class ChoixService {
 
   getAllAdmisInscriptionByConcour(reference:string): Observable<InscriptionResult[]> {
     return this.http.get<InscriptionResult[]>(`${this.apiUrl}admis/${reference}`);
+  }
+
+  getAllAdmisSeatsInscriptionByConcour(reference:string): Observable<InscriptionResult[]> {
+    return this.http.get<InscriptionResult[]>(`${this.apiUrl}admisSeat/${reference}`);
+  }
+
+  getAllPreselectionSeatsInscriptionByConcour(reference:string): Observable<InscriptionResult[]> {
+    return this.http.get<InscriptionResult[]>(`${this.apiUrl}preselectionSeat/${reference}`);
+  }
+
+  getAllOralSeatsInscriptionByConcour(reference:string): Observable<InscriptionResult[]> {
+    return this.http.get<InscriptionResult[]>(`${this.apiUrl}oralSeat/${reference}`);
   }
 
 }
