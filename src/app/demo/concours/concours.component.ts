@@ -50,7 +50,7 @@ export class ConcoursComponent {
   reference:string;
   module:Module={
     reference:"",
-    coefModule:0
+    coef:0
   };
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

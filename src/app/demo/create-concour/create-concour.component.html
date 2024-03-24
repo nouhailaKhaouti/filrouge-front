@@ -71,7 +71,7 @@
               </mat-form-field>
               <mat-form-field floatLabel="always" class="me-5 text-white">
                 <mat-label>Coef</mat-label>
-                <input matInput type="number" [(ngModel)]="module.coefModule" class="example-right-align" placeholder="0">
+                <input matInput type="number" [(ngModel)]="module.coef" class="example-right-align" placeholder="0">
                 <span matTextPrefix>%&nbsp;&nbsp;</span>
               </mat-form-field>
                 <button mat-button type="submit" class="btn btn-outline-success border">+</button>
@@ -90,7 +90,7 @@
                   <tr>
                     <th scope="row">1</th>
                     <td>{{module.reference}}</td>
-                    <td>{{module.coefModule}} %</td>
+                    <td>{{module.coef}} %</td>
                     <td>
                       <button class="action-button1 m-2" (click)="removeSubject(module)" >
                       <i class="fa fa-trash" ></i>

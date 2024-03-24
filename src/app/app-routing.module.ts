@@ -12,6 +12,8 @@ import { DepartementComponent } from './demo/departement/departement.component';
 import { FiliereComponent } from './demo/filiere/filiere.component';
 import { NiveauComponent } from './demo/niveau/niveau.component';
 import { InscriptionComponent } from './demo/inscription/inscription.component';
+import { InscriptionListComponent } from './demo/inscription-list/inscription-list.component';
+import { ConcoursListComponent } from './demo/concours-list/concours-list.component';
 
 const routes: Routes = [
   {
@@ -43,6 +45,14 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () => import('./demo/dashboard/dashboard.component'),
+      },
+      {
+        path: 'inscription_List',
+        component:InscriptionListComponent,
+      },
+      {
+        path: 'concours_List',
+        component:ConcoursListComponent,
       },
       {
         path: 'members',

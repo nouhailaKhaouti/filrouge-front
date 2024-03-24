@@ -1,4 +1,4 @@
-<form (ngSubmit)="submitForm()">
+<form (ngSubmit)="submitForm()" #inscriptionForm>
     <mat-stepper [linear]="isLinear" #stepper>
         <mat-step [stepControl]="firstFormGroup">
             <ng-template matStepLabel>Fill out your name</ng-template>
@@ -46,8 +46,8 @@
                     </div>
                 </div>
                 <div class="input-group form-floating col-4 w-25 bg-transparent">
-                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model"
-                        [formControl]="date2" ngbDatepicker #d="ngbDatepicker" placeholder="CIN : EE123456" />
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" 
+                        ngbDatepicker #d="ngbDatepicker" placeholder="CIN : EE123456" />
                     <button class="btn btn-outline-secondary input-group-text rounded-2" (click)="d.toggle()"
                         type="button"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22"
                             height="22">

@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {FormBuilder, Validators, FormsModule, ReactiveFormsModule, FormControl, FormGroup} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatStepperModule} from '@angular/material/stepper';
+import {MatStepper, MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
-import { NgbAlertModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { JsonPipe } from '@angular/common';
+import { NgbAlertModule, NgbDateParserFormatter, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule, DatePipe, JsonPipe } from '@angular/common';
 import Swal from 'sweetalert2';
 import { Inscription,Choix, Semestre, Diplome, } from 'src/app/model/inscription.model';
 import { InscriptionService } from 'src/app/services/inscription/inscription.service';
@@ -14,7 +14,6 @@ import { Filiere, Reference } from 'src/app/model/councour.model';
 import { ActivatedRoute } from '@angular/router';
 import { FiliereService } from 'src/app/services/filiere/filiere.service';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { reference } from '@popperjs/core';
 
 @Component({
   selector: 'app-inscription',
@@ -28,13 +27,18 @@ import { reference } from '@popperjs/core';
     MatInputModule,
     NgbDatepickerModule, NgbAlertModule,
     JsonPipe,
-    SharedModule
+    SharedModule,
+    CommonModule
   ],
-
+  providers: [
+    DatePipe
+  ],
   templateUrl: './inscription.component.html',
   styleUrl: './inscription.component.scss'
 })
 export class InscriptionComponent {
+  @ViewChild('stepper') stepper: MatStepper;
+  @ViewChild('inscriptionForm') inscriptionForm: MatStepper;
 
   options1: Reference[] = [];
   options2: Reference[] = [];
@@ -119,8 +123,6 @@ export class InscriptionComponent {
     note:null
   }
 
-  date2 = new FormControl();
-
 
   filieres:Filiere[]
   
@@ -155,7 +157,7 @@ export class InscriptionComponent {
   });
   isLinear = false;
 
-  constructor(private filiereService:FiliereService,private route: ActivatedRoute,private _formBuilder: FormBuilder,private inscriptionService:InscriptionService,private concoursService:ConcourService) {}
+  constructor(private ngbDateParserFormatter: NgbDateParserFormatter,private datePipe: DatePipe,private filiereService:FiliereService,private route: ActivatedRoute,private _formBuilder: FormBuilder,private inscriptionService:InscriptionService,private concoursService:ConcourService) {}
   updateOptions(selectedValue: string, selectNumber: number) {
     // Remove the selected value from other select elements
     if (selectNumber !== 1) {
@@ -200,13 +202,16 @@ export class InscriptionComponent {
     this.inscription.choixs.push(this.choix,this.choix1,this.choix2)
   
     this.inscription.cin=this.cin.value;
-    this.inscription.dateNaissance=this.date2.value;
+    if (this.model) {
+      this.inscription.dateNaissance = this.datePipe.transform(this.ngbDateParserFormatter.format(this.model), 'yyyy-MM-dd');
+    } else {
+      this.inscription.dateNaissance = ''; // or any default value
+    }
     console.log(this.inscription);
     this.inscriptionService.addInscription(this.inscription).subscribe(
       (response) => {
         console.log('inscription data sent successfully:', response);
           Swal.fire('Success', 'The application for Exam has been registred successfully!', 'success');
-
         },
         (error) => {
           console.error('Error sending competition data:', error);
@@ -226,5 +231,37 @@ export class InscriptionComponent {
   
         }
     );
+    this.stepper.reset();
+
+    this.inscription={
+      cne:'',
+      nom:'',
+      prenom:'',
+      cin:'',
+      tel:'',
+      email:'',
+      niveau:'',
+      AdressePersonnelle:'',
+      dateNaissance:'',
+      choixs: [],
+      diplomes:[],
+    }
+    this.diplome={
+      refDiplome: '',
+      anneeObtention: null,
+      mention: '',
+      note: 0,
+      semestres: []
+    }
+    this.diplome2={
+      refDiplome: '',
+      anneeObtention: null,
+      mention: '',
+      note: 0,
+      semestres: []
+    }
+    this.options1= [];
+    this.options2= [];
+    this.options3= [];
   }
 }

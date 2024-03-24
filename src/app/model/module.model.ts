@@ -1,7 +1,7 @@
 import { Concours } from "./councour.model"
 
 export interface Module{
-    coefModule:Number,
+    coef:Number,
     reference:string
 }
 

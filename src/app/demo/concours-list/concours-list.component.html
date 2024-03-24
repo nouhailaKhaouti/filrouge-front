@@ -1,0 +1,62 @@
+  <div class="row">
+      <div class="col-sm-12 bg-light">
+          <app-card
+          cardTitle="Concours"
+          cardClass="Concours"
+          blockClass="p-0"
+          >
+          <button  class="btn btn-info position-absolute top-0 end-0 border rounded-3 m-5" (click)="createConcours()" type="submit"> + </button>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <!-- if data not exist -->
+                <div *ngIf="concoursList.length <= 0" class="alert alert-primary d-flex align-items-center mx-5 mt-5 mb-3"role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    <div>
+                      there's no Exams in our data base for the moment please try again later, or be the first to register new exam.
+                    </div>
+                </div>
+              <tbody *ngFor="let concours of concoursList ">
+                
+                  <tr class="unread">
+                    <td>
+                        <p class="m-0">{{ concours.reference}}</p>
+                    </td>
+                    <td>
+                      <p class="m-0">{{ concours.anneeConcours }}</p>
+                    </td>
+                    <td>
+                        <h6 class="mb-1 label bg-black text-white f-12 rounded-pill"> {{concours.filiere.label}}
+                        </h6>
+                    </td>
+                    <td>
+                        <p class="m-0">{{ concours.niveau }}</p>
+                    </td>
+                    <td>
+                        <p class="m-0">{{ concours.dateConcoursEcrit }}</p>
+                    </td>
+                    <td>
+                      <div class="action-buttons me-4 mt-2">
+                          <!-- Delete button -->
+                          <button class="btn btn-info border rounded-3 m-5" (click)="inscription(concours)" > 
+                             Student List
+                          </button>
+                          <button *ngIf="isBeforeEcritDate(concours)" class="btn btn-primary border rounded-3 m-5" (click)="inscriptionPreselection(concours)">
+                            preselection List
+                          </button>
+                          <button *ngIf="isBetweenEcritAndOralDate(concours)" class="btn btn-light border rounded-3 m-5" (click)="inscriptionWriting(concours)">
+                            oral exam List
+                          </button>
+                          <button *ngIf="isAfterOralDate(concours)" class="btn btn-warning border rounded-3 m-5" (click)="inscriptionAdmis(concours)">
+                            Accepted List
+                          </button>
+                      </div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </app-card>
+      </div>
+    </div>
