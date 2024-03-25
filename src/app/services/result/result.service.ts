@@ -15,16 +15,8 @@ export class ResultService {
     return this.http.put<Result>(`${this.apiUrl}`, result);
   }
 
-  preselection(results:Result[]): Observable<Result> {
-    return this.http.put<Result>(`${this.apiUrl}preselection`, results);
-  }
-
-  writing(result:Result[]): Observable<Result> {
-    return this.http.put<Result>(`${this.apiUrl}writing`, result);
-  }
-
-  admis(result:Result[]): Observable<Result> {
-    return this.http.put<Result>(`${this.apiUrl}admis`, result);
+  updateStatus(results:Result[],prefix:string): Observable<Result> {
+    return this.http.put<Result>(`${this.apiUrl}${prefix}`, results);
   }
 
   updateOralNote(result:Result): Observable<Result> {

@@ -41,7 +41,12 @@
           aria-label="Close"></button>
         </div>
         <div class="modal-body card text-dark d-flex justify-content-around">
-          <form (ngSubmit)="submitForm()">
+            <div>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control rounded-3" [(ngModel)]="searchTerm" placeholder="Search by CIN" (keyup)="search()"/>
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="50px" height="50px"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path opacity="0.1" fill-rule="evenodd" clip-rule="evenodd" d="M12 3C4.5885 3 3 4.5885 3 12C3 19.4115 4.5885 21 12 21C19.4115 21 21 19.4115 21 12C21 4.5885 19.4115 3 12 3ZM11.5 7.75C9.42893 7.75 7.75 9.42893 7.75 11.5C7.75 13.5711 9.42893 15.25 11.5 15.25C13.5711 15.25 15.25 13.5711 15.25 11.5C15.25 9.42893 13.5711 7.75 11.5 7.75Z" fill="#74b1d8"></path> <path d="M3 12C3 4.5885 4.5885 3 12 3C19.4115 3 21 4.5885 21 12C21 19.4115 19.4115 21 12 21C4.5885 21 3 19.4115 3 12Z" stroke="#74b1d8" stroke-width="2"></path> <path d="M14 14L16 16" stroke="#74b1d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M15 11.5C15 13.433 13.433 15 11.5 15C9.567 15 8 13.433 8 11.5C8 9.567 9.567 8 11.5 8C13.433 8 15 9.567 15 11.5Z" stroke="#74b1d8" stroke-width="2"></path> </g></svg>                </div>
+            </div>
+          <form (submit)="submitSeatForm()">
               <div class="card-body text-center table-responsive">
                 <table class="table table-hover mb-0">
                     <thead>
@@ -52,15 +57,15 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let inscription of inscriptions">
-                        <td><input type="checkbox" [checked]="checkedMap[inscription.cin]"></td>
+                      <tr *ngFor="let inscription of inscriptions; let i = index" [style.display]="visibleRows[i] ? 'table-row' : 'none'">
+                        <td><input type="checkbox" [checked]="isChecked(inscription)" (change)="toggleCheck(inscription)" [disabled]="isCheckboxDisabled(inscription.cin)" ></td>
                         <td>{{ inscription.cin }}</td>
                         <td>{{inscription.nom}} {{inscription.prenom}}</td>
                       </tr>
                     </tbody>
                   </table>
-                <button  class="btn btn-info mb-4 mt-5" (click)="closeListModal()">Close</button>
-                <button  class="btn btn-success mb-4 mt-5" type="submit">Submit</button>
+                <button  class="btn btn-info mt-5" (click)="closeListModal()">Close</button>
+                <button  class="btn btn-success mt-5" type="submit">Submit</button>
               </div>
           </form>
         </div>

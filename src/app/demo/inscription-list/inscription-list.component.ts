@@ -38,9 +38,11 @@ export class InscriptionListComponent {
     niveau:"",
     modules:[]
   }
+  name:string
   prefix:string
+  nbrPlaces:Number;
   modules:NoteModule[]=[]
-
+  checkedInscriptions: Set<string> = new Set();
   inscriptions:InscriptionResult[]=[]
   inscriptionsSeats:InscriptionResult[]=[]
   result:Result={
@@ -56,6 +58,7 @@ export class InscriptionListComponent {
     noteModules:[],
     noteOral:null
   }
+  results:Result[]=[];
 
   checkedMap: { [key: string]: boolean } = {};
 
@@ -82,6 +85,8 @@ export class InscriptionListComponent {
     if(this.prefix=='admis'){
       this.choixService.getAllAdmisInscriptionByConcour(this.concour.reference).subscribe(
         (response: InscriptionResult[]) => {
+          console.log(response);
+
           this.inscriptions = response;
         },
         error => {
@@ -93,6 +98,8 @@ export class InscriptionListComponent {
     if(this.prefix=='all'){
       this.choixService.getAllInscriptionByConcour(this.concour.reference).subscribe(
         (response: InscriptionResult[]) => {
+          console.log(response);
+
           this.inscriptions = response;
         },
         error => {
@@ -104,6 +111,8 @@ export class InscriptionListComponent {
     if(this.prefix=='preselection'){
       this.choixService.getAllPreselectionInscriptionByConcour(this.concour.reference).subscribe(
         (response: InscriptionResult[]) => {
+          console.log(response);
+
           this.inscriptions = response;
         },
         error => {
@@ -115,6 +124,8 @@ export class InscriptionListComponent {
     if(this.prefix=='writing'){
       this.choixService.getAllWritingInscriptionByConcour(this.concour.reference).subscribe(
         (response: InscriptionResult[]) => {
+          console.log(response);
+
           this.inscriptions = response;
         },
         error => {
@@ -197,14 +208,37 @@ export class InscriptionListComponent {
       }
   }
 
+  isCheckboxDisabled(index: string): boolean {
+    const maxCheckedValue: number = this.nbrPlaces.valueOf();
+    return this.checkedInscriptions.size >= maxCheckedValue && !this.checkedInscriptions.has(index);
+  }
+
+  isChecked(inscription: InscriptionResult): boolean {
+    return this.checkedInscriptions.has(inscription.cin);
+  }
+
+  toggleCheck(inscription: InscriptionResult): void {
+    const maxCheckedValue: number = this.nbrPlaces.valueOf();
+    if (this.checkedInscriptions.has(inscription.cin)) {
+      this.checkedInscriptions.delete(inscription.cin);
+    } else {
+      if (this.checkedInscriptions.size < maxCheckedValue) {
+      this.checkedInscriptions.add(inscription.cin);
+      }else{
+        Swal.fire("info","you can't check more the "+maxCheckedValue+ " student ","info")
+      }
+    }
+  }
+
   openListModal(name:string){
-    this.listModal.nativeElement.classList.add('show');
-    this.listModal.nativeElement.style.display = 'block';
+     this.name=name;
     if(name=='admis'){
       this.choixService.getAllAdmisSeatsInscriptionByConcour(this.concour.reference).subscribe(
         (response: InscriptionResult[]) => {
           console.log(response);
           this.inscriptionsSeats = response;
+          this.compare();
+          this.nbrPlaces=this.concour.nbreplace;
         },
         error => {
           console.log(error);
@@ -215,8 +249,11 @@ export class InscriptionListComponent {
     if(name=='preselection'){
       this.choixService.getAllPreselectionSeatsInscriptionByConcour(this.concour.reference).subscribe(
         (response: InscriptionResult[]) => {
-          console.log(response);
           this.inscriptionsSeats = response;
+          this.compare();
+          this.nbrPlaces=this.concour.nbreplaceConcoursEcrit;
+          console.log(this.nbrPlaces);
+
         },
         error => {
           console.log(error);
@@ -225,32 +262,97 @@ export class InscriptionListComponent {
     }
   
     if(name=='oral'){
-  
       this.choixService.getAllOralSeatsInscriptionByConcour(this.concour.reference).subscribe(
         (response: InscriptionResult[]) => {
           console.log(response);
           this.inscriptionsSeats = response;
+          this.compare();
+          this.nbrPlaces=this.concour.nbreplaceConcoursOral;
         },
         error => {
           console.log(error);
         }
       );
     }
+  }
 
-        // Iterate over the first list
-        this.inscriptions.forEach(inscription1 => {
-          // Check if the current inscription exists in the second list
-          const existsInList2 = this.inscriptionsSeats.some(inscription2 => inscription2.cin === inscription1.cin);
-          // Update the checkbox state in the map based on the comparison result
-          this.checkedMap[inscription1.cin] = existsInList2;
-        });
-
+  compare(){
+    this.listModal.nativeElement.classList.add('show');
+    this.listModal.nativeElement.style.display = 'block';
+    this.inscriptions.forEach(inscription1 => {
+      const existsInList2 = this.inscriptionsSeats.some(inscription2 => inscription2.cin === inscription1.cin);
+      if(existsInList2){
+      this.checkedInscriptions.add(inscription1.cin);
+      }
+    });
+    this.search();
   }
 
   closeListModal(){
     this.listModal.nativeElement.classList.add('hide');
     this.listModal.nativeElement.style.display = 'none';
     this.checkedMap={};
+  }
+
+  searchTerm: string = '';
+  visibleRows: boolean[] = []; 
+
+  search(): void {
+    for (let i = 0; i < this.inscriptions.length; i++) {
+      if (this.inscriptions[i].cin.toLowerCase().includes(this.searchTerm.toLowerCase())) {
+        this.visibleRows[i] = true;
+      } else {
+        this.visibleRows[i] = false;
+      }
+    }
+  }
+
+  clearSearch(): void {
+    this.searchTerm = '';
+    this.visibleRows.fill(true);
+  }
+
+  submitSeatForm(): void {
+    const result:Result={
+      choix:{
+        concour:{
+          reference:''
+        },
+        inscription:{
+          cin:'',
+          niveau:''
+        }
+      },
+      noteModules:[],
+      noteOral:null
+    }
+    this.checkedInscriptions.forEach(ch=>{
+          result.choix.inscription.cin=ch;
+          result.choix.inscription.niveau=this.concour.niveau;
+          result.choix.concour.reference=this.concour.reference;
+          this.results.push(result);
+    })
+    console.log(this.results);
+    this.resultService.updateStatus(this.results,this.name).subscribe(
+      (response) => {
+        console.log('Module data sent successfully:', response);
+          Swal.fire('Success', 'Student status has been updated!', 'success');
+        },
+        (error) => {
+          console.error('Error sending competition data:', error);
+          if (Array.isArray(error.error.error)) {
+            const errorMessage = error.error.error.join('<br>'); 
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              html: errorMessage  
+            });
+          } else {
+            console.log('Unexpected error structure:', error.error);
+            Swal.fire('Error', error.error, 'error'); 
+          }
+        }
+    );
   }
 
   submitForm(): void {

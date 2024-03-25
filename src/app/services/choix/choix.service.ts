@@ -28,15 +28,15 @@ export class ChoixService {
   }
 
   getAllAdmisSeatsInscriptionByConcour(reference:string): Observable<InscriptionResult[]> {
-    return this.http.get<InscriptionResult[]>(`${this.apiUrl}admisSeat/${reference}`);
+    return this.http.get<InscriptionResult[]>(`${this.apiUrl}admisSeats/${reference}`);
   }
 
   getAllPreselectionSeatsInscriptionByConcour(reference:string): Observable<InscriptionResult[]> {
-    return this.http.get<InscriptionResult[]>(`${this.apiUrl}preselectionSeat/${reference}`);
+    return this.http.get<InscriptionResult[]>(`${this.apiUrl}preselectionSeats/${reference}`);
   }
 
   getAllOralSeatsInscriptionByConcour(reference:string): Observable<InscriptionResult[]> {
-    return this.http.get<InscriptionResult[]>(`${this.apiUrl}oralSeat/${reference}`);
+    return this.http.get<InscriptionResult[]>(`${this.apiUrl}oralSeats/${reference}`);
   }
 
 }
