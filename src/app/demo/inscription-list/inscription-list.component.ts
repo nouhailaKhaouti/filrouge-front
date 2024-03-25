@@ -185,27 +185,32 @@ export class InscriptionListComponent {
     return currentDate >= oralDate;
   }
 
-  PdfGenerate(): void {
-    console.log("here");
-      const token = localStorage.getItem('token');
+  PdfGenerate(prefix:string): void {
+    console.log("Generating PDF...");
+    const token = localStorage.getItem('token');
   
-      if (token) {
-        const url = `http://localhost:8090/FilRouge/api/choix/pdf/all/${this.concour.reference}`;
+    if (token) {
+      const url = `http://localhost:8090/FilRouge/api/choix/pdf/${prefix}/${this.concour.reference}`;
+      console.log(url);
   
-        const headers = new HttpHeaders({
-          'Authorization': `Bearer ${token}`
-        });
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
   
-        this.http.get(url, { headers: headers, responseType: 'blob' }).subscribe(response => {
-          const file = new Blob([response], { type: 'application/pdf' });
-          const fileURL = URL.createObjectURL(file);
-          window.open(fileURL, '_blank');
-        }, error => {
-          console.error('Error fetching PDF:', error);
-        });
-      } else {
-        console.error("Token not found in local storage");
-      }
+      this.http.get(url, { headers: headers, responseType: 'blob' }).subscribe(response => {
+        const file = new Blob([response], { type: 'application/pdf' });
+  
+      const fileURL = URL.createObjectURL(file);
+  
+        window.open(fileURL, '_blank');
+  
+        console.log("PDF generated successfully.");
+      }, error => {
+        console.error('Error fetching PDF:', error);
+      });
+    } else {
+      console.error("Token not found in local storage");
+    }
   }
 
   isCheckboxDisabled(index: string): boolean {

@@ -44,13 +44,14 @@ export class ConcoursComponent {
       nbreplaceConcoursEcrit:0,
       nbreplaceConcoursOral:0
     },
-    reference:""
+    reference:"",
+    coefModule:null
   };
   constructor(private route: ActivatedRoute,private router: Router ,private concourService:ConcourService,private moduleService:ModuleService) {}
   reference:string;
   module:Module={
     reference:"",
-    coef:0
+    coefModule:null
   };
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -77,6 +78,7 @@ export class ConcoursComponent {
   submitModuleForm(): void {
     this.concoursModule.concour.reference=this.reference;
     this.concoursModule.reference=this.module.reference;
+    this.concoursModule.coefModule=this.module.coefModule;
     console.log(this.concoursModule);
     if(this.concoursModule.reference){
     this.moduleService.addModule(this.concoursModule).subscribe(
@@ -129,6 +131,9 @@ export class ConcoursComponent {
   
         }
     );
-    // this.closeModal();
+    this.module={
+      reference:"",
+      coefModule:null
+    };
   }
 }

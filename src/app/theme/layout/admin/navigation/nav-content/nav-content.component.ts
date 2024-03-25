@@ -1,10 +1,11 @@
 // angular import
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { Location } from '@angular/common';
 
 // project import
 import { NavigationItem } from '../navigation';
 import { environment } from 'src/environments/environment';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-nav-content',
@@ -23,6 +24,7 @@ export class NavContentComponent implements OnInit {
   constructor(
     public nav: NavigationItem,
     private location: Location,
+    private tokenService:TokenService
   ) {
     this.windowWidth = window.innerWidth;
     this.navigation = this.nav.get();
@@ -30,6 +32,11 @@ export class NavContentComponent implements OnInit {
 
   // life cycle event
   ngOnInit() {
+    console.log(this.navigation);
+    if(this.tokenService.getTokenClaims().role=="PROF"){
+    const filteredItemIds = ['Navigation', 'MANAGE EXAMS'];
+    this.navigation = this.filterNavigationItemsByIds(filteredItemIds, this.navigation);
+    }
     if (this.windowWidth < 992) {
       setTimeout(() => {
         document
@@ -42,6 +49,19 @@ export class NavContentComponent implements OnInit {
     }
   }
 
+  filterNavigationItemsByIds(itemIds: string[], navigationItems: NavigationItem[]): NavigationItem[] {
+    let filteredItems: NavigationItem[] = [];
+
+    itemIds.forEach(itemId => {
+      const foundItem = navigationItems.find(item => item.title === itemId);
+
+      if (foundItem) {
+        filteredItems.push(foundItem);
+      }
+    });
+
+    return filteredItems;
+  }
   // public method
   navMob() {
     if (

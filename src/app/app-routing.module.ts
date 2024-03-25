@@ -14,6 +14,8 @@ import { NiveauComponent } from './demo/niveau/niveau.component';
 import { InscriptionComponent } from './demo/inscription/inscription.component';
 import { InscriptionListComponent } from './demo/inscription-list/inscription-list.component';
 import { ConcoursListComponent } from './demo/concours-list/concours-list.component';
+import { roleGuard } from './guards/role.guard';
+import { notAuthGuard } from './guards/not-auth.guard';
 
 const routes: Routes = [
   {
@@ -32,51 +34,62 @@ const routes: Routes = [
     component: InscriptionComponent
 
   },  
-  
   {
     path: '',
     component: AdminComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',
+        canActivate: [roleGuard], data: { role: ['MANAGER','PROF'] }
       },
       {
         path: 'dashboard',
         loadComponent: () => import('./demo/dashboard/dashboard.component'),
+        canActivate: [roleGuard], data: { role: ['MANAGER','PROF'] }
       },
       {
         path: 'inscription_List',
         component:InscriptionListComponent,
+        canActivate: [roleGuard], data: { role: ['MANAGER','PROF'] }
       },
       {
         path: 'concours_List',
         component:ConcoursListComponent,
+        canActivate: [roleGuard], data: { role: ['MANAGER','PROF'] }
       },
       {
         path: 'members',
         component:MembersComponent,
+        canActivate: [roleGuard], data: { role: ['MANAGER'] }
       },
       {
         path: 'concours',
         component:ConcoursComponent,
+        canActivate: [roleGuard], data: { role: ['MANAGER','PROF'] }
       },
       {
         path: 'ExamsCalendar',
         component:FullCalendarComponent,
+        canActivate: [roleGuard], data: { role: ['MANAGER','PROF'] }
       },
       {
         path: 'CreateConcour',
         component:CreateConcourComponent,
+        canActivate: [roleGuard], data: { role: ['MANAGER','PROF'] }
       },
       {
         path: 'departement',
         component:DepartementComponent,
+        canActivate: [roleGuard], data: { role: ['MANAGER'] }
       },
       {
         path: 'field',
         component:FiliereComponent,
+        canActivate: [roleGuard], data: { role: ['MANAGER'] }
+
       },
       {
         path: 'basic',
@@ -114,6 +127,7 @@ const routes: Routes = [
   {
     path: '',
     component: GuestComponent,
+    canActivate: [notAuthGuard],
     children: [
       {
         path: 'auth',

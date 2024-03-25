@@ -52,7 +52,7 @@ export class CreateConcourComponent {
   serializedDate = new FormControl(new Date().toISOString());
   modules:Module[]=[];
   module:Module={
-    coef:0,
+    coefModule:0,
     reference:"",
   }
   concour:Concour={
@@ -97,7 +97,7 @@ export class CreateConcourComponent {
     });
     if (!moduleExists) {
       const newModule: Module = {
-        coef: this.module.coef,
+        coefModule: this.module.coefModule,
         reference: this.module.reference
       };
       
@@ -112,7 +112,7 @@ export class CreateConcourComponent {
 
   resetModule(){
     this.module={
-      coef:0,
+      coefModule:0,
       reference:"",
     }
   }
