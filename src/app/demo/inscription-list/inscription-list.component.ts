@@ -40,7 +40,7 @@ export class InscriptionListComponent {
   }
   name:string
   prefix:string
-  nbrPlaces:Number;
+  nbrPlaces:number;
   modules:NoteModule[]=[]
   checkedInscriptions: Set<string> = new Set();
   inscriptions:InscriptionResult[]=[]
@@ -209,8 +209,7 @@ export class InscriptionListComponent {
   }
 
   isCheckboxDisabled(index: string): boolean {
-    const maxCheckedValue: number = this.nbrPlaces.valueOf();
-    return this.checkedInscriptions.size >= maxCheckedValue && !this.checkedInscriptions.has(index);
+    return this.checkedInscriptions.size >= this.nbrPlaces && !this.checkedInscriptions.has(index);
   }
 
   isChecked(inscription: InscriptionResult): boolean {
@@ -218,14 +217,13 @@ export class InscriptionListComponent {
   }
 
   toggleCheck(inscription: InscriptionResult): void {
-    const maxCheckedValue: number = this.nbrPlaces.valueOf();
     if (this.checkedInscriptions.has(inscription.cin)) {
       this.checkedInscriptions.delete(inscription.cin);
     } else {
-      if (this.checkedInscriptions.size < maxCheckedValue) {
+      if (this.checkedInscriptions.size < this.nbrPlaces) {
       this.checkedInscriptions.add(inscription.cin);
       }else{
-        Swal.fire("info","you can't check more the "+maxCheckedValue+ " student ","info")
+        Swal.fire("info","you can't check more the "+this.nbrPlaces+ " student ","info")
       }
     }
   }
@@ -353,6 +351,7 @@ export class InscriptionListComponent {
           }
         }
     );
+    this.closeListModal();
   }
 
   submitForm(): void {

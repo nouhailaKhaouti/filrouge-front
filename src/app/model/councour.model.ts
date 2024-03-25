@@ -3,12 +3,12 @@ import { Module } from "./module.model"
 
 export interface Concour{
     reference:string,
-    anneeConcours:Number,
+    anneeConcours:number,
     dateConcoursEcrit:string,
     dateConcoursOral:string,
-    nbreplace:Number,
-    nbreplaceConcoursEcrit:Number,
-    nbreplaceConcoursOral:Number
+    nbreplace:number,
+    nbreplaceConcoursEcrit:number,
+    nbreplaceConcoursOral:number
     filiere:Filiere
     niveau:string
     modules:Module[]
