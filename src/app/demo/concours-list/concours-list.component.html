@@ -39,16 +39,16 @@
                     <td>
                       <div class="action-buttons me-4 mt-2">
                           <!-- Delete button -->
-                          <button class="btn btn-info border rounded-3 m-5" (click)="inscription(concours)" > 
+                          <button class="btn btn-info border rounded-3" (click)="inscription(concours)" > 
                              Student List
                           </button>
-                          <button *ngIf="isBeforeEcritDate(concours)" class="btn btn-primary border rounded-3 m-5" (click)="inscriptionPreselection(concours)">
+                          <button *ngIf="isBeforeEcritDate(concours)" class="btn btn-primary border rounded-3" (click)="inscriptionPreselection(concours)">
                             preselection List
                           </button>
-                          <button *ngIf="isBetweenEcritAndOralDate(concours)" class="btn btn-light border rounded-3 m-5" (click)="inscriptionWriting(concours)">
+                          <button *ngIf="isBetweenEcritAndOralDate(concours)" class="btn btn-light border rounded-3" (click)="inscriptionWriting(concours)">
                             oral exam List
                           </button>
-                          <button *ngIf="isAfterOralDate(concours)" class="btn btn-warning border rounded-3 m-5" (click)="inscriptionAdmis(concours)">
+                          <button *ngIf="isAfterOralDate(concours)" class="btn btn-warning border rounded-3" (click)="inscriptionAdmis(concours)">
                             Accepted List
                           </button>
                       </div>
