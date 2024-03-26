@@ -73,6 +73,13 @@ const NavigationItems = [
         icon: 'feather icon-server',
         url: '/ExamsCalendar',
       },
+      {
+        id: 'concours_List',
+        title: 'Exams List',
+        type: 'item',
+        icon: 'feather icon-file-text',
+        url: '/concours_List',
+      },
     ],
   },
   {
@@ -95,6 +102,7 @@ const NavigationItems = [
         icon: 'feather icon-file-text',
         url: '/field',
       },
+
     ],
   },
   // {

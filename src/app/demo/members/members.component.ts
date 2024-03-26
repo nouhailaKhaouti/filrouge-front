@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Member } from 'src/app/model/member.model';
 import { MemberService } from 'src/app/services/member/member.service';
@@ -55,6 +55,7 @@ export class MembersComponent {
     role:'PROF',
     email:''
   };
+  num= new FormControl();
   constructor(private MemberService: MemberService) { }
 
   ngOnInit(): void {
@@ -122,27 +123,14 @@ export class MembersComponent {
   closeModal(): void {
     this.memberModal.nativeElement.classList.add('hide');
     this.memberModal.nativeElement.style.display = 'none';
-    
-    this.Member={
-      num:0,
-      name:'nouhaila',
-      familyName:'khaouti',
-      nationality:'morocco',
-      identityDocument:'CIN',
-      identityNumber:'EE123456',
-      accountApproved:false,
-      role:'PROF',
-      email:'jaouralive90@gmail.com'
-    };
-
   }
 
   deleteModal(member:Member){
     this.deleteMember(member);
   }
 
-  openRoleModal(num:Number): void {
-    this.Member.num=num;
+  openRoleModal(member:Number): void {
+    this.Member.num=member;
     this.roleModal.nativeElement.classList.add('show');
     this.roleModal.nativeElement.style.display = 'block';
     }
@@ -186,6 +174,9 @@ export class MembersComponent {
 
   submitForm(): void {
     this.closeModal();
+    this.Member.num=this.num.value;
+    console.log(this.Member);
+
     this.MemberService.addMemberData(this.Member).subscribe(
       (response) => {
         console.log('Member data sent successfully:', response);
@@ -211,11 +202,11 @@ export class MembersComponent {
   
         }
     );
-    // this.closeModal();
+    this.closeModal();
   }
 
   submitFormRole(): void {
-    this.closeRoleModal();
+    
     this.MemberService.changeRole(this.Member.role,this.Member.num).subscribe(
       (response) => {
         console.log('Member data sent successfully:', response);
@@ -239,7 +230,7 @@ export class MembersComponent {
   
         }
     );
-    // this.closeModal();
+    this.closeRoleModal();
   }
 
   deleteMember(member:Member): void {
