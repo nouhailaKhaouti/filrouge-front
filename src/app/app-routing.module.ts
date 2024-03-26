@@ -16,6 +16,7 @@ import { InscriptionListComponent } from './demo/inscription-list/inscription-li
 import { ConcoursListComponent } from './demo/concours-list/concours-list.component';
 import { roleGuard } from './guards/role.guard';
 import { notAuthGuard } from './guards/not-auth.guard';
+import { StudentComponent } from './theme/layout/student/student.component';
 
 const routes: Routes = [
   {
@@ -23,17 +24,22 @@ const routes: Routes = [
     pathMatch: 'full',
 
   },  
-
   {
-    path: 'levels',
-    component: NiveauComponent
+    path: '',
+    component: StudentComponent,
+      children: [
+      {
+        path: 'levels',
+        component: NiveauComponent
 
-  },  
-  {
-    path: 'subscription/:niveau',
-    component: InscriptionComponent
+      },  
+      {
+        path: 'subscription/:niveau',
+        component: InscriptionComponent
 
-  },  
+      }, 
+    ]
+  },
   {
     path: '',
     component: AdminComponent,

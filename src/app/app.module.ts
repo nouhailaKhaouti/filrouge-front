@@ -25,12 +25,14 @@ import { ToggleFullScreenDirective } from './theme/shared/components/full-screen
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { StudentComponent } from './theme/layout/student/student.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GuestComponent,
     AdminComponent,
+    StudentComponent,
     NavBarComponent,
     NavigationComponent,
     NavLeftComponent,

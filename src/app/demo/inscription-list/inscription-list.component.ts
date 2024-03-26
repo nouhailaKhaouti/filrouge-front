@@ -3,7 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Concour, Reference } from 'src/app/model/councour.model';
-import { InscriptionResult } from 'src/app/model/inscription.model';
+import { ChoixInscription, ChoixResult, InscriptionResult } from 'src/app/model/inscription.model';
 import { NoteModule, Result } from 'src/app/model/result.model';
 import { ChoixService } from 'src/app/services/choix/choix.service';
 import { ResultService } from 'src/app/services/result/result.service';
@@ -58,7 +58,7 @@ export class InscriptionListComponent {
     noteModules:[],
     noteOral:null
   }
-  results:Result[]=[];
+  choixs:ChoixInscription[]=[];
 
   checkedMap: { [key: string]: boolean } = {};
 
@@ -316,27 +316,21 @@ export class InscriptionListComponent {
   }
 
   submitSeatForm(): void {
-    const result:Result={
-      choix:{
-        concour:{
-          reference:''
-        },
-        inscription:{
-          cin:'',
-          niveau:''
-        }
-      },
-      noteModules:[],
-      noteOral:null
-    }
-    this.checkedInscriptions.forEach(ch=>{
-          result.choix.inscription.cin=ch;
-          result.choix.inscription.niveau=this.concour.niveau;
-          result.choix.concour.reference=this.concour.reference;
-          this.results.push(result);
-    })
-    console.log(this.results);
-    this.resultService.updateStatus(this.results,this.name).subscribe(
+    this.checkedInscriptions.forEach(ch => {
+      const choix: ChoixInscription = {
+          concour: {
+              reference: this.concour.reference
+          },
+          inscription: {
+              cin: ch,
+              niveau: this.concour.niveau
+          }
+      };
+      this.choixs.push(choix);
+  });
+    console.log(this.choixs);
+    console.log(this.name);
+    this.resultService.updateStatus(this.choixs,this.name).subscribe(
       (response) => {
         console.log('Module data sent successfully:', response);
           Swal.fire('Success', 'Student status has been updated!', 'success');
@@ -357,6 +351,8 @@ export class InscriptionListComponent {
         }
     );
     this.closeListModal();
+    this.choixs=[];
+    this.PdfGenerate("preselection");
   }
 
   submitForm(): void {

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ChoixInscription } from 'src/app/model/inscription.model';
 import { Result } from 'src/app/model/result.model';
 
 @Injectable({
@@ -15,7 +16,7 @@ export class ResultService {
     return this.http.put<Result>(`${this.apiUrl}`, result);
   }
 
-  updateStatus(results:Result[],prefix:string): Observable<Result> {
+  updateStatus(results:ChoixInscription[],prefix:string): Observable<Result> {
     return this.http.put<Result>(`${this.apiUrl}${prefix}`, results);
   }
 

@@ -1,252 +1,269 @@
-<form (ngSubmit)="submitForm()" #inscriptionForm>
-    <mat-stepper [linear]="isLinear" #stepper>
-        <mat-step [stepControl]="firstFormGroup">
-            <ng-template matStepLabel>Fill out your name</ng-template>
-            <div class="card-body text-center row ms-4 mt-5 mb-5">
-                <div class="d-flex col-12">
-                    <div class="form-floating mb-3 me-5 w-25">
-                        <input type="text" class="form-control" id="cne" [(ngModel)]="inscription.cne"
-                            placeholder="CNE Ex: G123456789" />
-                        <label for="floatingInput">CNE</label>
+<div class="row">
+    <div class="col-sm-12 bg-light">
+        <app-card cardTitle="Inscription" cardClass="Inscription" blockClass="p-0">
+            <form (ngSubmit)="submitForm()" #inscriptionForm>
+                <mat-stepper [linear]="isLinear" orientation="vertical" #stepper>
+                    <mat-step [stepControl]="firstFormGroup">
+                        <ng-template matStepLabel>Fill out your name</ng-template>
+                        <div class="card-body text-center row ms-4 mt-5 mb-5">
+                            <div class="d-flex col-12">
+                                <div class="form-floating mb-3 me-5 w-25">
+                                    <input type="text" class="form-control" id="cne" [(ngModel)]="inscription.cne"
+                                        placeholder="CNE Ex: G123456789" />
+                                    <label for="floatingInput">CNE</label>
 
-                    </div>
-                    <div class="form-floating mb-4 me-5 w-25">
-                        <input type="text" class="form-control" name="nom" [(ngModel)]="inscription.nom"
-                            placeholder="CIN : EE123456" />
-                        <label for="floatingInput">Your First Name</label>
+                                </div>
+                                <div class="form-floating mb-4 me-5 w-25">
+                                    <input type="text" class="form-control" name="nom" [(ngModel)]="inscription.nom"
+                                        placeholder="CIN : EE123456" />
+                                    <label for="floatingInput">Your First Name</label>
 
-                    </div>
+                                </div>
 
-                    <div class="form-floating mb-4 w-25">
-                        <input type="text" class="form-control" name="prenom" [(ngModel)]="inscription.prenom"
-                            placeholder="CIN : EE123456" />
-                        <label for="floatingInput">Your Last Name</label>
+                                <div class="form-floating mb-4 w-25">
+                                    <input type="text" class="form-control" name="prenom"
+                                        [(ngModel)]="inscription.prenom" placeholder="CIN : EE123456" />
+                                    <label for="floatingInput">Your Last Name</label>
 
-                    </div>
-                </div>
-                <div class="d-flex col-12">
-                    <div class="form-floating mb-4 me-5 w-25">
-                        <input type="email" class="form-control" name="cin" [formControl]="cin"
-                            placeholder="CIN : EE123456" />
-                        <label for="floatingInput">CIN</label>
+                                </div>
+                            </div>
+                            <div class="d-flex col-12">
+                                <div class="form-floating mb-4 me-5 w-25">
+                                    <input type="email" class="form-control" name="cin" [formControl]="cin"
+                                        placeholder="CIN : EE123456" />
+                                    <label for="floatingInput">CIN</label>
 
-                    </div>
-                    <div class="form-floating mb-4 me-5 w-25">
-                        <input type="text" class="form-control" name="tel" [(ngModel)]="inscription.tel"
-                            placeholder="N° Tel Ex:+212123456789" />
-                        <label for="floatingInput">Phone Number</label>
+                                </div>
+                                <div class="form-floating mb-4 me-5 w-25">
+                                    <input type="text" class="form-control" name="tel" [(ngModel)]="inscription.tel"
+                                        placeholder="N° Tel Ex:+212123456789" />
+                                    <label for="floatingInput">Phone Number</label>
 
-                    </div>
-                    <div class="form-floating mb-4 w-25">
-                        <input type="text" class="form-control" name="adress"
-                            [(ngModel)]="inscription.AdressePersonnelle"
-                            placeholder="Your personnal adress Tel Ex:Tafilalt Imm 3 appartement 21" />
-                        <label for="floatingInput">Personnal address</label>
+                                </div>
+                                <div class="form-floating mb-4 w-25">
+                                    <input type="text" class="form-control" name="adress"
+                                        [(ngModel)]="inscription.AdressePersonnelle"
+                                        placeholder="Your personnal adress Tel Ex:Tafilalt Imm 3 appartement 21" />
+                                    <label for="floatingInput">Personnal address</label>
 
-                    </div>
-                </div>
-                <div class="input-group form-floating col-4 w-25 bg-transparent">
-                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" 
-                        ngbDatepicker #d="ngbDatepicker" placeholder="CIN : EE123456" />
-                    <button class="btn btn-outline-secondary input-group-text rounded-2" (click)="d.toggle()"
-                        type="button"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22"
-                            height="22">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M7.75 2.5C7.75 2.08579 7.41421 1.75 7 1.75C6.58579 1.75 6.25 2.08579 6.25 2.5V4.07926C4.81067 4.19451 3.86577 4.47737 3.17157 5.17157C2.47737 5.86577 2.19451 6.81067 2.07926 8.25H21.9207C21.8055 6.81067 21.5226 5.86577 20.8284 5.17157C20.1342 4.47737 19.1893 4.19451 17.75 4.07926V2.5C17.75 2.08579 17.4142 1.75 17 1.75C16.5858 1.75 16.25 2.08579 16.25 2.5V4.0129C15.5847 4 14.839 4 14 4H10C9.16097 4 8.41527 4 7.75 4.0129V2.5Z"
-                                    fill="#e0e4f0"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M2 12C2 11.161 2 10.4153 2.0129 9.75H21.9871C22 10.4153 22 11.161 22 12V14C22 17.7712 22 19.6569 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V12ZM17 14C17.5523 14 18 13.5523 18 13C18 12.4477 17.5523 12 17 12C16.4477 12 16 12.4477 16 13C16 13.5523 16.4477 14 17 14ZM17 18C17.5523 18 18 17.5523 18 17C18 16.4477 17.5523 16 17 16C16.4477 16 16 16.4477 16 17C16 17.5523 16.4477 18 17 18ZM13 13C13 13.5523 12.5523 14 12 14C11.4477 14 11 13.5523 11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13ZM13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17C11 16.4477 11.4477 16 12 16C12.5523 16 13 16.4477 13 17ZM7 14C7.55228 14 8 13.5523 8 13C8 12.4477 7.55228 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14ZM7 18C7.55228 18 8 17.5523 8 17C8 16.4477 7.55228 16 7 16C6.44772 16 6 16.4477 6 17C6 17.5523 6.44772 18 7 18Z"
-                                    fill="#e0e4f0"></path>
-                            </g>
-                        </svg></button>
-                    <label for="floatingInput" class="me-2">Your birthDay</label>
+                                </div>
+                            </div>
+                            <div class="input-group form-floating col-4 w-25 bg-transparent">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model"
+                                    ngbDatepicker #d="ngbDatepicker" placeholder="CIN : EE123456" />
+                                <button class="btn btn-outline-secondary input-group-text rounded-2"
+                                    (click)="d.toggle()" type="button"><svg viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                        </g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M7.75 2.5C7.75 2.08579 7.41421 1.75 7 1.75C6.58579 1.75 6.25 2.08579 6.25 2.5V4.07926C4.81067 4.19451 3.86577 4.47737 3.17157 5.17157C2.47737 5.86577 2.19451 6.81067 2.07926 8.25H21.9207C21.8055 6.81067 21.5226 5.86577 20.8284 5.17157C20.1342 4.47737 19.1893 4.19451 17.75 4.07926V2.5C17.75 2.08579 17.4142 1.75 17 1.75C16.5858 1.75 16.25 2.08579 16.25 2.5V4.0129C15.5847 4 14.839 4 14 4H10C9.16097 4 8.41527 4 7.75 4.0129V2.5Z"
+                                                fill="#e0e4f0"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M2 12C2 11.161 2 10.4153 2.0129 9.75H21.9871C22 10.4153 22 11.161 22 12V14C22 17.7712 22 19.6569 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V12ZM17 14C17.5523 14 18 13.5523 18 13C18 12.4477 17.5523 12 17 12C16.4477 12 16 12.4477 16 13C16 13.5523 16.4477 14 17 14ZM17 18C17.5523 18 18 17.5523 18 17C18 16.4477 17.5523 16 17 16C16.4477 16 16 16.4477 16 17C16 17.5523 16.4477 18 17 18ZM13 13C13 13.5523 12.5523 14 12 14C11.4477 14 11 13.5523 11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13ZM13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17C11 16.4477 11.4477 16 12 16C12.5523 16 13 16.4477 13 17ZM7 14C7.55228 14 8 13.5523 8 13C8 12.4477 7.55228 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14ZM7 18C7.55228 18 8 17.5523 8 17C8 16.4477 7.55228 16 7 16C6.44772 16 6 16.4477 6 17C6 17.5523 6.44772 18 7 18Z"
+                                                fill="#e0e4f0"></path>
+                                        </g>
+                                    </svg></button>
+                                <label for="floatingInput" class="me-2">Your birthDay</label>
 
-                </div>
-                <!-- <pre>{{ model | json }}</pre> -->
-            </div>
-            <div>
-                <button mat-button type="button" matStepperNext class="btn btn-outline-info border">Next</button>
-            </div>
-        </mat-step>
-        <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
-            <ng-template matStepLabel>Fill Diplome Information</ng-template>
-            <div class="card-body text-center row ms-5 mt-5 mb-5 ">
-                <div class="d-flex col-12">
-                    <div class="form-floating mb-3 me-5 w-25">
-                        <select class="form-select" [(ngModel)]="diplome.refDiplome"
-                            aria-label="Floating label select example">
-                            <option value="DUT">DUT</option>
-                            <option value="DEUST">DEUST</option>
-                            <option value="DEUG">DEUG</option>
-                            <option value="BTS">BTS</option>
-                        </select>
-                        <label for="floatingSelect">Choose Diplome Type</label>
-                    </div>
+                            </div>
+                            <!-- <pre>{{ model | json }}</pre> -->
+                        </div>
+                        <div>
+                            <button mat-button type="button" matStepperNext
+                                class="btn btn-outline-info border">Next</button>
+                        </div>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+                        <ng-template matStepLabel>Fill Diplome Information</ng-template>
+                        <div class="card-body text-center row ms-5 mt-5 mb-5 ">
+                            <div class="d-flex col-12">
+                                <div class="form-floating mb-3 me-5 w-25">
+                                    <select class="form-select" [(ngModel)]="diplome.refDiplome"
+                                        aria-label="Floating label select example">
+                                        <option value="DUT">DUT</option>
+                                        <option value="DEUST">DEUST</option>
+                                        <option value="DEUG">DEUG</option>
+                                        <option value="BTS">BTS</option>
+                                    </select>
+                                    <label for="floatingSelect">Choose Diplome Type</label>
+                                </div>
 
-                    <div class="form-floating mb-4 me-5 w-25">
-                        <input type="number" class="form-control" [(ngModel)]="diplome.anneeObtention"
-                            placeholder="CIN : EE123456" />
-                        <label for="floatingInput">year obtained</label>
-                    </div>
+                                <div class="form-floating mb-4 me-5 w-25">
+                                    <input type="number" class="form-control" [(ngModel)]="diplome.anneeObtention"
+                                        placeholder="CIN : EE123456" />
+                                    <label for="floatingInput">year obtained</label>
+                                </div>
 
-                    <div class="form-floating mb-3 w-25">
-                        <select class="form-select" [(ngModel)]="diplome.mention"
-                            aria-label="Floating label select example">
-                            <option value="passable">Average</option>
-                            <option value="assez_bien">Above Average</option>
-                            <option value="bien">Good</option>
-                            <option value="tres_bien">Great</option>
-                            <option value="excelent">Excellent</option>
-                        </select>
-                        <label for="floatingSelect">Choose mention</label>
-                    </div>
-                </div>
-                <div class="d-flex col-12">
-                    <div class="form-floating mb-3 me-5 w-25">
-                        <select class="form-select" aria-label="Floating label select example" [(ngModel)]="filiere"
-                            (change)="updateFiliere(filiere)">
-                            <option *ngFor="let filiere of filieres" [value]="filiere.label">{{filiere.label}}</option>
-                        </select>
-                        <label for="floatingSelect">Choose Field</label>
-                    </div>
+                                <div class="form-floating mb-3 w-25">
+                                    <select class="form-select" [(ngModel)]="diplome.mention"
+                                        aria-label="Floating label select example">
+                                        <option value="passable">Average</option>
+                                        <option value="assez_bien">Above Average</option>
+                                        <option value="bien">Good</option>
+                                        <option value="tres_bien">Great</option>
+                                        <option value="excelent">Excellent</option>
+                                    </select>
+                                    <label for="floatingSelect">Choose mention</label>
+                                </div>
+                            </div>
+                            <div class="d-flex col-12">
+                                <div class="form-floating mb-3 me-5 w-25">
+                                    <select class="form-select" aria-label="Floating label select example"
+                                        [(ngModel)]="filiere" (change)="updateFiliere(filiere)">
+                                        <option *ngFor="let filiere of filieres" [value]="filiere.label">
+                                            {{filiere.label}}</option>
+                                    </select>
+                                    <label for="floatingSelect">Choose Field</label>
+                                </div>
 
-                    <div class="form-floating mb-4 me-5 w-25">
-                        <input type="number" step="0.01" class="form-control" [(ngModel)]="diplome.note"
-                            placeholder="CIN : EE123456" />
-                        <label for="floatingInput">Diplome grade</label>
-                    </div>
+                                <div class="form-floating mb-4 me-5 w-25">
+                                    <input type="number" step="0.01" class="form-control" [(ngModel)]="diplome.note"
+                                        placeholder="CIN : EE123456" />
+                                    <label for="floatingInput">Diplome grade</label>
+                                </div>
 
-                    <div class="form-floating mb-4 me-5 w-25">
-                        <input type="number" step="0.01" class="form-control" [(ngModel)]="semestre1.note"
-                            placeholder="N° Tel Ex:+212123456789" />
-                        <label for="floatingInput">Semestre 1</label>
-                    </div>
-                </div>
-                <div class="d-flex col-12">
-                    <div class="form-floating mb-4 me-5 w-25">
-                        <input type="number" step="0.01" class="form-control" [(ngModel)]="semestre2.note"
-                            placeholder="Your personnal adress Tel Ex:Tafilalt Imm 3 appartement 21" />
-                        <label for="floatingInput">Semestre 2</label>
-                    </div>
+                                <div class="form-floating mb-4 me-5 w-25">
+                                    <input type="number" step="0.01" class="form-control" [(ngModel)]="semestre1.note"
+                                        placeholder="N° Tel Ex:+212123456789" />
+                                    <label for="floatingInput">Semestre 1</label>
+                                </div>
+                            </div>
+                            <div class="d-flex col-12">
+                                <div class="form-floating mb-4 me-5 w-25">
+                                    <input type="number" step="0.01" class="form-control" [(ngModel)]="semestre2.note"
+                                        placeholder="Your personnal adress Tel Ex:Tafilalt Imm 3 appartement 21" />
+                                    <label for="floatingInput">Semestre 2</label>
+                                </div>
 
-                    <div class="form-floating mb-4 me-5 w-25">
-                        <input type="number" step="0.01" class="form-control" [(ngModel)]="semestre3.note"
-                            placeholder="N° Tel Ex:+212123456789" />
-                        <label for="floatingInput">Semestre 3</label>
-                    </div>
+                                <div class="form-floating mb-4 me-5 w-25">
+                                    <input type="number" step="0.01" class="form-control" [(ngModel)]="semestre3.note"
+                                        placeholder="N° Tel Ex:+212123456789" />
+                                    <label for="floatingInput">Semestre 3</label>
+                                </div>
 
-                    <div class="form-floating mb-4 w-25">
-                        <input type="number" step="0.01" class="form-control" [(ngModel)]="semestre4.note"
-                            placeholder="Your personnal adress Tel Ex:Tafilalt Imm 3 appartement 21" />
-                        <label for="floatingInput">Semestre 4</label>
-                    </div>
-                </div>
+                                <div class="form-floating mb-4 w-25">
+                                    <input type="number" step="0.01" class="form-control" [(ngModel)]="semestre4.note"
+                                        placeholder="Your personnal adress Tel Ex:Tafilalt Imm 3 appartement 21" />
+                                    <label for="floatingInput">Semestre 4</label>
+                                </div>
+                            </div>
 
-            </div>
-            <div>
-                <button mat-button matStepperPrevious class="btn btn-outline-info border">Back</button>
-                <button mat-button type="button" matStepperNext class="btn btn-outline-info border">Next</button>
-            </div>
-        </mat-step>
-        <mat-step *ngIf="niveau === 'MASTER' || niveau === 'CYCLE_D_INGENIEUR_2'" [stepControl]="thirdFormGroup"
-            label="Fill out your address">
-            <ng-template matStepLabel>Fill Licence Information</ng-template>
-            <div class="card-body text-center row ms-5 mt-5 mb-5">
-                <div class="d-flex col-12">
-                    <div class="form-floating mb-3 me-5 w-25">
-                        <select class="form-select" aria-label="Floating label select example"
-                            [(ngModel)]="diplome2.refDiplome">
-                            <option value="LICENCE_FONDAMENTAL">Licence fondamental</option>
-                            <option value="LICENCE_PROFESSIONAL">Licence Professionel</option>
-                        </select>
-                        <label for="floatingSelect">Choose Diplome Type</label>
-                    </div>
+                        </div>
+                        <div>
+                            <button mat-button matStepperPrevious class="btn btn-outline-info border">Back</button>
+                            <button mat-button type="button" matStepperNext
+                                class="btn btn-outline-info border">Next</button>
+                        </div>
+                    </mat-step>
+                    <mat-step *ngIf="niveau === 'MASTER' || niveau === 'CYCLE_D_INGENIEUR_2'"
+                        [stepControl]="thirdFormGroup" label="Fill out your address">
+                        <ng-template matStepLabel>Fill Licence Information</ng-template>
+                        <div class="card-body text-center row ms-5 mt-5 mb-5">
+                            <div class="d-flex col-12">
+                                <div class="form-floating mb-3 me-5 w-25">
+                                    <select class="form-select" aria-label="Floating label select example"
+                                        [(ngModel)]="diplome2.refDiplome">
+                                        <option value="LICENCE_FONDAMENTAL">Licence fondamental</option>
+                                        <option value="LICENCE_PROFESSIONAL">Licence Professionel</option>
+                                    </select>
+                                    <label for="floatingSelect">Choose Diplome Type</label>
+                                </div>
 
-                    <div class="form-floating mb-4 me-5 w-25">
-                        <input type="number" class="form-control" [(ngModel)]="diplome2.anneeObtention"
-                            placeholder="CIN : EE123456" />
-                        <label for="floatingInput">year obtained</label>
-                    </div>
+                                <div class="form-floating mb-4 me-5 w-25">
+                                    <input type="number" class="form-control" [(ngModel)]="diplome2.anneeObtention"
+                                        placeholder="CIN : EE123456" />
+                                    <label for="floatingInput">year obtained</label>
+                                </div>
 
-                    <div class="form-floating mb-3 w-25">
-                        <select class="form-select" [(ngModel)]="diplome2.mention"
-                            aria-label="Floating label select example">
-                            <option value="passable">Average</option>
-                            <option value="assez_bien">Above Average</option>
-                            <option value="bien">Good</option>
-                            <option value="tres_bien">Great</option>
-                            <option value="excelent">Excellent</option>
-                        </select>
-                        <label for="floatingSelect">Choose mention</label>
-                    </div>
-                </div>
-                <div class="d-flex col-12">
+                                <div class="form-floating mb-3 w-25">
+                                    <select class="form-select" [(ngModel)]="diplome2.mention"
+                                        aria-label="Floating label select example">
+                                        <option value="passable">Average</option>
+                                        <option value="assez_bien">Above Average</option>
+                                        <option value="bien">Good</option>
+                                        <option value="tres_bien">Great</option>
+                                        <option value="excelent">Excellent</option>
+                                    </select>
+                                    <label for="floatingSelect">Choose mention</label>
+                                </div>
+                            </div>
+                            <div class="d-flex col-12">
 
-                    <div class="form-floating mb-4 me-5 w-25">
-                        <input type="number" step="0.01" class="form-control" [(ngModel)]="diplome2.note"
-                            placeholder="CIN : EE123456" />
-                        <label for="floatingInput">Diplome grade</label>
-                    </div>
+                                <div class="form-floating mb-4 me-5 w-25">
+                                    <input type="number" step="0.01" class="form-control" [(ngModel)]="diplome2.note"
+                                        placeholder="CIN : EE123456" />
+                                    <label for="floatingInput">Diplome grade</label>
+                                </div>
 
-                    <div class="form-floating mb-4 me-5 w-25">
-                        <input type="number" step="0.01" class="form-control" [(ngModel)]="semestre5.note"
-                            placeholder="N° Tel Ex:+212123456789" />
-                        <label for="floatingInput">Semestre 5</label>
-                    </div>
+                                <div class="form-floating mb-4 me-5 w-25">
+                                    <input type="number" step="0.01" class="form-control" [(ngModel)]="semestre5.note"
+                                        placeholder="N° Tel Ex:+212123456789" />
+                                    <label for="floatingInput">Semestre 5</label>
+                                </div>
 
-                    <div class="form-floating mb-4 me-5 w-25">
-                        <input type="number" step="0.01" class="form-control" [(ngModel)]="semestre6.note"
-                            placeholder="Your personnal adress Tel Ex:Tafilalt Imm 3 appartement 21" />
-                        <label for="floatingInput">Semestre 6</label>
-                    </div>
+                                <div class="form-floating mb-4 me-5 w-25">
+                                    <input type="number" step="0.01" class="form-control" [(ngModel)]="semestre6.note"
+                                        placeholder="Your personnal adress Tel Ex:Tafilalt Imm 3 appartement 21" />
+                                    <label for="floatingInput">Semestre 6</label>
+                                </div>
 
-                </div>
-            </div>
-            <div>
-                <button mat-button matStepperPrevious class="btn btn-outline-info border">Back</button>
-                <button mat-button type="button" matStepperNext class="btn btn-outline-info border">Next</button>
-            </div>
-        </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
+                            </div>
+                        </div>
+                        <div>
+                            <button mat-button matStepperPrevious class="btn btn-outline-info border">Back</button>
+                            <button mat-button type="button" matStepperNext
+                                class="btn btn-outline-info border">Next</button>
+                        </div>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Done</ng-template>
 
-            <div class="card-body text-center row ms-5 mt-5 mb-5 ">
-                <div class="d-flex col-12">
-                    <div class="form-floating mb-3 me-5 w-25">
-                        <select class="form-select" [(ngModel)]="selectedValue1"
-                            (change)="updateOptions(selectedValue1, 1)" aria-label="Floating label select example">
-                            <option *ngFor="let option of options1" [value]="option.reference">{{ option.reference }}
-                            </option>
-                        </select>
-                        <label for="floatingSelect">Choose Exam 1</label>
-                    </div>
-                    <div class="form-floating mb-3 me-5 w-25">
-                        <select class="form-select" [(ngModel)]="selectedValue2"
-                            (change)="updateOptions(selectedValue2, 2)" aria-label="Floating label select example">
-                            <option *ngFor="let option of options2" [value]="option.reference">{{ option.reference }}
-                            </option>
-                        </select>
-                        <label for="floatingSelect">Choose Exam 2</label>
-                    </div>
-                    <div class="form-floating mb-3 me-5 w-25">
-                        <select class="form-select" [(ngModel)]="selectedValue3"
-                            (change)="updateOptions(selectedValue3, 3)" aria-label="Floating label select example">
-                            <option *ngFor="let option of options3" [value]="option.reference">{{ option.reference }}
-                            </option>
-                        </select>
-                        <label for="floatingSelect">Choose Exam 3</label>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <button mat-button class="btn btn-outline-info border" matStepperPrevious>Back</button>
-                <button mat-button class="btn btn-outline-success border" type="submit">Submit</button>
-                <button mat-button class="btn btn-outline-warning border" (click)="stepper.reset()">Reset</button>
-            </div>
-        </mat-step>
-
-    </mat-stepper>
-</form>
+                        <div class="card-body text-center row ms-5 mt-5 mb-5 ">
+                            <div class="d-flex col-12">
+                                <div class="form-floating mb-3 me-5 w-25">
+                                    <select class="form-select" [(ngModel)]="selectedValue1"
+                                        (change)="updateOptions(selectedValue1, 1)"
+                                        aria-label="Floating label select example">
+                                        <option *ngFor="let option of options1" [value]="option.reference">{{
+                                            option.reference }}
+                                        </option>
+                                    </select>
+                                    <label for="floatingSelect">Choose Exam 1</label>
+                                </div>
+                                <div class="form-floating mb-3 me-5 w-25">
+                                    <select class="form-select" [(ngModel)]="selectedValue2"
+                                        (change)="updateOptions(selectedValue2, 2)"
+                                        aria-label="Floating label select example">
+                                        <option *ngFor="let option of options2" [value]="option.reference">{{
+                                            option.reference }}
+                                        </option>
+                                    </select>
+                                    <label for="floatingSelect">Choose Exam 2</label>
+                                </div>
+                                <div class="form-floating mb-3 me-5 w-25">
+                                    <select class="form-select" [(ngModel)]="selectedValue3"
+                                        (change)="updateOptions(selectedValue3, 3)"
+                                        aria-label="Floating label select example">
+                                        <option *ngFor="let option of options3" [value]="option.reference">{{
+                                            option.reference }}
+                                        </option>
+                                    </select>
+                                    <label for="floatingSelect">Choose Exam 3</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button mat-button class="btn btn-outline-info border" matStepperPrevious>Back</button>
+                            <button mat-button class="btn btn-outline-success border" type="submit">Submit</button>
+                            <button mat-button class="btn btn-outline-warning border"
+                                (click)="stepper.reset()">Reset</button>
+                        </div>
+                    </mat-step>
+                </mat-stepper>
+            </form>
+        </app-card>
+    </div>
+</div>
